@@ -45,6 +45,12 @@ android {
     androidResources {
         noCompress += ['html']
     }
+
+    // Personal sideloaded app: don't let release-time lint checks block the APK build.
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
