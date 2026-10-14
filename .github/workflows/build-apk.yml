@@ -21,12 +21,12 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Build signed APK
+      - name: Build signed APKs (main + Liquid Glass V2)
         shell: bash
         run: |
           chmod +x gradlew
           set -o pipefail
-          if ! ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tee build.log; then
+          if ! ./gradlew assembleClassicRelease assembleGlassRelease --no-daemon --stacktrace 2>&1 | tee build.log; then
             # Surface the Gradle error as an annotation so it shows on the run summary page.
             msg=$(grep -A 30 "What went wrong" build.log | head -60)
             [ -z "$msg" ] && msg=$(grep -iE "error|exception" build.log | head -40)
@@ -35,12 +35,15 @@ jobs:
             echo "::error title=Gradle build failed::$msg"
             exit 1
           fi
-          cp app/build/outputs/apk/release/app-release.apk MerdekaMandarin.apk
+          cp app/build/outputs/apk/classic/release/app-classic-release.apk MerdekaMandarin.apk
+          cp app/build/outputs/apk/glass/release/app-glass-release.apk MerdekaMandarin-V2.apk
 
       - uses: actions/upload-artifact@v4
         with:
           name: MerdekaMandarin-apk
-          path: MerdekaMandarin.apk
+          path: |
+            MerdekaMandarin.apk
+            MerdekaMandarin-V2.apk
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
@@ -52,3 +55,17 @@ jobs:
             Pembaruan bisa langsung dipasang di atas versi lama; progres belajar tetap tersimpan.
           files: MerdekaMandarin.apk
           make_latest: true
+
+      # The Liquid Glass option lives in its own release, v1.5-V2, refreshed on every build.
+      - name: Publish 1.5-V2 (Liquid Glass)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v1.5-V2 >/dev/null 2>&1; then
+            gh release upload v1.5-V2 MerdekaMandarin-V2.apk --clobber
+          else
+            gh release create v1.5-V2 MerdekaMandarin-V2.apk --target "${{ github.sha }}" --latest=false \
+              --title "Merdeka Mandarin 1.5-V2 (Liquid Glass)" \
+              --notes "Versi opsi kedua dengan tampilan Liquid Glass. Unduh **MerdekaMandarin-V2.apk** lalu pasang. Aplikasi ini bernama *Merdeka Mandarin V2* dan bisa dipasang berdampingan dengan aplikasi utama (progres belajarnya terpisah)."
+          fi

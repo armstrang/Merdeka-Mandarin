@@ -19,3 +19,12 @@ Versi baru dipasang dengan cara yang sama, langsung di atas versi lama. Progres 
 ## Sumber data
 
 Daftar kata dan pinyin dari [harukicoder/hsk30](https://github.com/harukicoder/hsk30). Arti, contoh kalimat, dan terjemahannya ditulis oleh Claude.
+
+## Versi 1.5-V2 (Liquid Glass)
+
+Opsi tampilan kedua bergaya *Liquid Glass*: kaca buram transparan, latar warna yang bergerak pelan,
+animasi transisi yang halus, dan getar ringan saat menjawab. Unduh **MerdekaMandarin-V2.apk** dari
+rilis [v1.5-V2](../../releases/tag/v1.5-V2). Aplikasinya bernama **Merdeka Mandarin V2** dan bisa dipasang
+berdampingan dengan aplikasi utama; progres belajar keduanya terpisah.
+
+Struktur: `app/src/classic/assets/index.html` (aplikasi utama) dan `app/src/glass/assets/index.html` (V2).

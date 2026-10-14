@@ -17,6 +17,20 @@ android {
         versionName "1.${runNumber}"
     }
 
+    // Two looks of the same app: 'classic' is the main app, 'glass' is the Liquid Glass option (1.5-V2).
+    // Different application IDs, so both can be installed side by side.
+    flavorDimensions 'look'
+    productFlavors {
+        classic {
+            dimension 'look'
+        }
+        glass {
+            dimension 'look'
+            applicationIdSuffix '.v2'
+            versionName "1.5-V2.${runNumber}"
+        }
+    }
+
     signingConfigs {
         // One fixed key for every build: Android only accepts an update signed with the same key.
         merdeka {
