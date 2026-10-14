@@ -257,6 +257,10 @@ html[lang="th"] .id{font-style:normal}
 .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .key{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:7px 9px;font-size:11.5px;color:var(--soft);line-height:1.3}
 .key b{display:flex;align-items:center;gap:5px;font-size:16px;color:var(--fg);font-variant-numeric:tabular-nums}
+.scale{display:grid;grid-template-columns:repeat(20,1fr);gap:2px;height:14px}
+.scale i{border-radius:3px}
+.scalelbl{display:grid;grid-template-columns:repeat(20,1fr);font-size:11px;color:var(--mute);margin-top:4px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scalelbl .end{grid-column:15/21;text-align:right;font-weight:700;color:var(--soft)}
 .grid-wrap{display:flex;flex-direction:column;gap:10px}
 .ublock .ulabel{font-size:11px;font-weight:800;color:var(--mute);letter-spacing:.06em;margin-bottom:5px;font-variant-numeric:tabular-nums}
 .ublock .ulabel span{font-weight:600;letter-spacing:0}
@@ -313,9 +317,7 @@ html[lang="th"] .id{font-style:normal}
     <div class="ring">
       <svg viewBox="0 0 120 120" aria-hidden="true">
         <circle class="trk" cx="60" cy="60" r="52"/>
-        <circle class="sg" id="sg-green" cx="60" cy="60" r="52" style="stroke:var(--s-green)"/>
-        <circle class="sg" id="sg-yellow" cx="60" cy="60" r="52" style="stroke:var(--s-yellow)"/>
-        <circle class="sg" id="sg-red" cx="60" cy="60" r="52" style="stroke:var(--s-red)"/>
+        <g id="ringArcs"></g>
       </svg>
       <div class="rc"><b id="heroPct">0%</b><small id="heroLbl"></small></div>
     </div>
@@ -375,6 +377,7 @@ html[lang="th"] .id{font-style:normal}
     <div class="stsum" id="stSum"></div>
     <div class="stbar"><div class="stack" id="stStack"></div></div>
     <div class="keys" id="stKeys"></div>
+    <div class="scalewrap" id="stScale"></div>
     <div class="grid-wrap" id="stGrid"></div>
     <div class="stdetail" id="stDetail"></div>
     <div class="stfoot" id="stFoot"></div>
@@ -492,10 +495,30 @@ vi:{name:'Tiếng Việt',loc:'vi-VN',langHead:'Ngôn ngữ học',names:{id:'Ti
 };
 
 /* strings for the home screen and focused screens */
-Object.assign(I18N.id,{back:'Kembali',memoWord:'hafal',statsShort:'Statistik',lvCount:(k,t)=>`<b>${k}</b> / ${t} kata dihafal`,subList:'Lihat & cari kata',subCard:'Latihan menghafal',subQuiz:'Uji pemahaman'});
-Object.assign(I18N.en,{back:'Back',memoWord:'memorized',statsShort:'Stats',lvCount:(k,t)=>`<b>${k}</b> / ${t} words memorized`,subList:'Browse & search',subCard:'Practice recall',subQuiz:'Test yourself'});
-Object.assign(I18N.th,{back:'กลับ',memoWord:'จำได้',statsShort:'สถิติ',lvCount:(k,t)=>`จำได้ <b>${k}</b> / ${t} คำ`,subList:'ดูและค้นหาคำ',subCard:'ฝึกจำคำศัพท์',subQuiz:'ทดสอบความเข้าใจ'});
-Object.assign(I18N.vi,{back:'Quay lại',memoWord:'đã thuộc',statsShort:'Thống kê',lvCount:(k,t)=>`đã thuộc <b>${k}</b> / ${t} từ`,subList:'Xem & tìm từ',subCard:'Luyện ghi nhớ',subQuiz:'Tự kiểm tra'});
+Object.assign(I18N.id,{memoWord:'penguasaan',matureWord:'matang',lvlWord:'tingkat',weak:'Belum matang',
+  lvCount:(k,t)=>`<b>${k}</b> / ${t} kata matang`,allLv:(k,t)=>`Semua level · <b>${k}</b> / ${t} kata matang`,
+  matureOf:(k,n)=>`${k}/${n} matang`,matureN:k=>`${k} matang`,stTxt:(s,a,b)=>`Tingkat ${s}/20 · ${a} benar, ${b} salah`,
+  roundDone:'Satu putaran selesai. Kata yang belum matang akan muncul lagi di putaran berikutnya.',
+  rsNote:'Setiap jawaban benar (Kartu, Kuis, atau tombol Tahu) menaikkan kata 1 tingkat, sampai 20. Jawaban salah menurunkan 3 tingkat. Warnanya bergeser dari merah ke kuning ke hijau: warna muda berarti belum matang, warna pekat berarti matang.'});
+Object.assign(I18N.en,{memoWord:'mastery',matureWord:'mastered',lvlWord:'level',weak:'Not mastered',
+  lvCount:(k,t)=>`<b>${k}</b> / ${t} words mastered`,allLv:(k,t)=>`All levels · <b>${k}</b> / ${t} words mastered`,
+  matureOf:(k,n)=>`${k}/${n} mastered`,matureN:k=>`${k} mastered`,stTxt:(s,a,b)=>`Level ${s}/20 · ${a} right, ${b} wrong`,
+  roundDone:'Round complete. Words not yet mastered will come back next round.',
+  rsNote:'Each right answer (Cards, Quiz, or the Know it button) moves a word up 1 level, up to 20. A wrong answer moves it down 3. Colors shift from red to yellow to green: a light shade means still young, a deep shade means mature.'});
+Object.assign(I18N.th,{memoWord:'ความชำนาญ',matureWord:'ชำนาญ',lvlWord:'ระดับ',weak:'ยังไม่ชำนาญ',
+  lvCount:(k,t)=>`ชำนาญ <b>${k}</b> / ${t} คำ`,allLv:(k,t)=>`ทุกระดับ · ชำนาญ <b>${k}</b> / ${t} คำ`,
+  matureOf:(k,n)=>`ชำนาญ ${k}/${n}`,matureN:k=>`ชำนาญ ${k} คำ`,stTxt:(s,a,b)=>`ระดับ ${s}/20 · ถูก ${a} ผิด ${b}`,
+  roundDone:'จบหนึ่งรอบแล้ว คำที่ยังไม่ชำนาญจะกลับมาอีกในรอบถัดไป',
+  rsNote:'ตอบถูกแต่ละครั้ง (บัตรคำ แบบทดสอบ หรือปุ่มรู้แล้ว) คำนั้นจะขึ้น 1 ระดับ สูงสุด 20 ตอบผิดจะลดลง 3 ระดับ สีจะค่อย ๆ เปลี่ยนจากแดงเป็นเหลืองเป็นเขียว สีอ่อนหมายถึงยังไม่ชำนาญ สีเข้มหมายถึงชำนาญแล้ว'});
+Object.assign(I18N.vi,{memoWord:'mức thuộc',matureWord:'thuộc hẳn',lvlWord:'mức',weak:'Chưa thuộc hẳn',
+  lvCount:(k,t)=>`đã thuộc hẳn <b>${k}</b> / ${t} từ`,allLv:(k,t)=>`Tất cả cấp · đã thuộc hẳn <b>${k}</b> / ${t} từ`,
+  matureOf:(k,n)=>`${k}/${n} thuộc hẳn`,matureN:k=>`${k} thuộc hẳn`,stTxt:(s,a,b)=>`Mức ${s}/20 · ${a} đúng, ${b} sai`,
+  roundDone:'Xong một vòng. Những từ chưa thuộc hẳn sẽ xuất hiện lại ở vòng sau.',
+  rsNote:'Mỗi câu trả lời đúng (Thẻ, Kiểm tra hoặc nút Biết) nâng từ lên 1 mức, tối đa 20. Trả lời sai giảm 3 mức. Màu chuyển dần từ đỏ sang vàng rồi xanh: màu nhạt là còn non, màu đậm là đã thuộc hẳn.'});
+Object.assign(I18N.id,{back:'Kembali',statsShort:'Statistik',subList:'Lihat & cari kata',subCard:'Latihan menghafal',subQuiz:'Uji pemahaman'});
+Object.assign(I18N.en,{back:'Back',statsShort:'Stats',subList:'Browse & search',subCard:'Practice recall',subQuiz:'Test yourself'});
+Object.assign(I18N.th,{back:'กลับ',statsShort:'สถิติ',subList:'ดูและค้นหาคำ',subCard:'ฝึกจำคำศัพท์',subQuiz:'ทดสอบความเข้าใจ'});
+Object.assign(I18N.vi,{back:'Quay lại',statsShort:'Thống kê',subList:'Xem & tìm từ',subCard:'Luyện ghi nhớ',subQuiz:'Tự kiểm tra'});
 
 /* 'auto' follows the phone/browser language; unsupported languages fall back to English */
 function sysLang(){const list=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||''];
@@ -524,18 +547,34 @@ function mH(m){const p=m.split(';').map(x=>x.trim()).filter(Boolean);return `<b>
 const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 
+/* Mastery: every word has a level 0–20. A right answer raises it by 1, a wrong answer lowers it by 3,
+   so a word needs about 20 good repetitions to mature. Levels 0–6 are red, 7–13 yellow, 14–20 green;
+   inside each colour a light shade means young and a deep shade means mature. Level 20 = mastered. */
+const MAXL=20,UP=1,DOWN=3;
+const lvBand=s=>s>=14?'green':s>=7?'yellow':'red';
+const lvAlpha=s=>{const [lo,hi]=s>=14?[14,20]:s>=7?[7,13]:[0,6];return Math.round(26+74*(s-lo)/(hi-lo))};
+{let a='',b='';for(let s=0;s<=MAXL;s++){a+=`.m${s}{--mc:var(--s-${lvBand(s)})}`;b+=`.m${s}{--mc:color-mix(in srgb,var(--s-${lvBand(s)}) ${lvAlpha(s)}%,var(--surface))}`}
+ const st=document.createElement('style');st.textContent=a+`@supports (color:color-mix(in srgb,red 50%,blue)){${b}}.mbg{background:var(--mc)}`;document.head.appendChild(st)}
+
 let stats=ls.get('mm_stats',null);
 if(!stats||typeof stats!=='object'){stats={};ls.get('hsk16_known',[]).forEach(id=>{if(IDX.has(id))stats[id]=[1,0]})}
+/* entries are [right, wrong, level]; older [right, wrong] entries get a level from their history */
+for(const k in stats){const e=stats[k];if(!Array.isArray(e)){delete stats[k];continue}if(e.length<3)e[2]=Math.max(0,Math.min(MAXL,(e[0]|0)-(e[1]|0)))}
 const saveStats=()=>ls.set('mm_stats',stats);
-function pct(d){const s=stats[d.id];if(!s||s[0]+s[1]===0)return null;return Math.round(s[0]/(s[0]+s[1])*100)}
-const band=p=>p===null?'none':p>=70?'green':p>=36?'yellow':'red';
-const bandOf=d=>band(pct(d));
-const isKnown=d=>bandOf(d)==='green';
-function counts(arr){const c={green:0,yellow:0,red:0,none:0};arr.forEach(d=>c[bandOf(d)]++);return c}
-function stackH(c,total){return ['green','yellow','red'].map(b=>`<i class="s-${b}" style="width:${c[b]/total*100}%"></i>`).join('')}
-function stTxt(d){const p=pct(d),s=stats[d.id];return p===null?L10.band.none:L10.stTxt(p,s[0],s[1])}
-function stH(d){return `<span class="st"><i class="sd s-${bandOf(d)}"></i>${stTxt(d)}</span>`}
-function record(d,ok){const s=stats[d.id]||[0,0];ok?s[0]++:s[1]++;stats[d.id]=s;saveStats();afterChange()}
+const lvl=d=>{const e=stats[d.id];return e&&e[0]+e[1]>0?e[2]:-1};   // -1 = never practised
+const bandOf=d=>{const s=lvl(d);return s<0?'none':lvBand(s)};
+const isKnown=d=>lvl(d)>=MAXL;                                       // mastered
+const mcls=d=>{const s=lvl(d);return s<0?'s-none':`m${s} mbg`};
+function summary(arr){const lv=new Array(MAXL+1).fill(0);let none=0,pts=0;
+  for(const d of arr){const s=lvl(d);if(s<0)none++;else{lv[s]++;pts+=s}}
+  const sum=(a,b)=>lv.slice(a,b).reduce((x,y)=>x+y,0);
+  return {lv,none,red:sum(0,7),yellow:sum(7,14),green:sum(14,MAXL+1),mature:lv[MAXL],n:arr.length,p:pts/(MAXL*arr.length)*100}}
+const pctTxt=p=>(p>0&&p<10?p.toLocaleString(L10.loc,{maximumFractionDigits:1}):Math.floor(p).toLocaleString(L10.loc))+'%';
+function stackH(S){let h='';for(let s=MAXL;s>=0;s--)if(S.lv[s])h+=`<i class="m${s} mbg" style="width:${S.lv[s]/S.n*100}%"></i>`;return h}
+function stTxt(d){const s=lvl(d);if(s<0)return L10.band.none;const e=stats[d.id];return L10.stTxt(s,e[0],e[1])}
+function stH(d){return `<span class="st"><i class="sd ${mcls(d)}"></i>${stTxt(d)}</span>`}
+function record(d,ok){const e=stats[d.id]||[0,0,0];if(ok){e[0]++;e[2]=Math.min(MAXL,e[2]+UP)}else{e[1]++;e[2]=Math.max(0,e[2]-DOWN)}stats[d.id]=e;saveStats();afterChange()}
+const masteredAll=()=>DATA.filter(isKnown).length;
 
 const ui=ls.get('hsk16_ui',{});
 let state={level:LEVELS.includes(ui.level)?ui.level:1,unitBy:Object.assign({1:1,2:1,3:1,4:1,5:1,6:1},ui.unitBy||{}),q:'',shown:60,hide:false,weak:false,screen:'home'};
@@ -603,18 +642,20 @@ function afterChange(){
 /* ---------- home ---------- */
 const RING_C=2*Math.PI*52;
 function renderHome(){
-  const L=state.level,arr=BY[L],tot=arr.length,c=counts(arr),pc=Math.round(c.green/tot*100);
-  $('lvPills').innerHTML=LEVELS.map(l=>{const cl=counts(BY[l]);
-    return `<button class="lvpill" data-l="${l}" aria-pressed="${l===L}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${Math.round(cl.green/BY[l].length*100)}%</small></button>`}).join('');
-  let off=0;
-  for(const b of ['green','yellow','red']){const len=c[b]/tot*RING_C,el=$('sg-'+b);el.setAttribute('stroke-dasharray',`${len} ${RING_C}`);el.setAttribute('stroke-dashoffset',String(-off));off+=len}
-  $('heroPct').textContent=pc+'%';$('heroLbl').textContent=L10.memoWord;
-  $('heroLv').textContent=`HSK ${L} · ${L10.words(fmt(tot))}`;
-  $('heroKeys').innerHTML=['green','yellow','red','none'].map(b=>`<div class="hkey"><i class="sd s-${b}"></i>${L10.band[b]}<b>${fmt(c[b])}</b></div>`).join('');
-  $('heroCnt').innerHTML=L10.lvCount(fmt(c.green),fmt(tot));
+  const L=state.level,S=summary(BY[L]),pc=pctTxt(S.p);
+  $('lvPills').innerHTML=LEVELS.map(l=>`<button class="lvpill" data-l="${l}" aria-pressed="${l===L}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`).join('');
+  /* one arc per level, deepest green first, so the ring fades from mature green to young red */
+  let off=0,arcs='';
+  for(let s=MAXL;s>=0;s--){if(!S.lv[s])continue;const len=S.lv[s]/S.n*RING_C;
+    arcs+=`<circle class="sg m${s}" cx="60" cy="60" r="52" style="stroke:var(--mc)" stroke-dasharray="${len.toFixed(2)} ${RING_C.toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}"/>`;off+=len}
+  $('ringArcs').innerHTML=arcs;
+  $('heroPct').textContent=pc;$('heroLbl').textContent=L10.memoWord;
+  $('heroLv').textContent=`HSK ${L} · ${L10.words(fmt(S.n))}`;
+  $('heroKeys').innerHTML=['green','yellow','red','none'].map(b=>`<div class="hkey"><i class="sd s-${b}"></i>${L10.band[b]}<b>${fmt(S[b])}</b></div>`).join('');
+  $('heroCnt').innerHTML=L10.lvCount(fmt(S.mature),fmt(S.n));
   $('heroGo').textContent=L10.statsShort+' ›';
-  hero.setAttribute('aria-label',`${L10.stTitle} · HSK ${L} · ${pc}%`);
-  $('allNote').innerHTML=L10.allLv(fmt(DATA.filter(isKnown).length),fmt(DATA.length));
+  hero.setAttribute('aria-label',`${L10.stTitle} · HSK ${L} · ${pc}`);
+  $('allNote').innerHTML=L10.allLv(fmt(masteredAll()),fmt(DATA.length));
 }
 $('lvPills').onclick=e=>{const p=e.target.closest('.lvpill');if(p&&+p.dataset.l!==state.level)setLevel(+p.dataset.l)};
 
@@ -625,13 +666,13 @@ function renderChips(){
   const L=state.level,u=unit();
   $('lvName').textContent='HSK '+L;lvbtn.setAttribute('aria-label',L10.pickLv+': HSK '+L);
   $('uName').textContent=u?L10.unit+' '+pad(u):L10.allShort;ubtn.setAttribute('aria-label',L10.pickU+': '+(u?L10.unit+' '+u:L10.allU));
-  $('allHead').innerHTML=L10.allLv(fmt(DATA.filter(isKnown).length),fmt(DATA.length));
+  $('allHead').innerHTML=L10.allLv(fmt(masteredAll()),fmt(DATA.length));
 }
 function renderMenu(){
-  lvList.innerHTML=LEVELS.map(l=>{const tot=BY[l].length,c=counts(BY[l]);
+  lvList.innerHTML=LEVELS.map(l=>{const S=summary(BY[l]),tot=S.n;
     return `<button class="lvrow" role="option" data-l="${l}" aria-selected="${state.level===l}" style="--lc:var(--l${l})">
       <span class="l"><i class="sd" style="width:10px;height:10px;background:var(--l${l})"></i><span class="nm"><b>HSK ${l}</b><small>${L10.words(fmt(tot))}</small></span></span>
-      <span class="r"><span class="mbar"><span class="stack">${stackH(c,tot)}</span></span><span class="pct">${Math.round(c.green/tot*100)}%</span></span></button>`}).join('');
+      <span class="r"><span class="mbar"><span class="stack">${stackH(S)}</span></span><span class="pct">${pctTxt(S.p)}</span></span></button>`}).join('');
 }
 function openMenu(){closeUMenu(false);renderMenu();lvMenu.hidden=false;lvbtn.setAttribute('aria-expanded','true');(lvList.querySelector('[aria-selected="true"]')||lvList.firstElementChild).focus()}
 function closeMenu(focusBtn){lvMenu.hidden=true;lvbtn.setAttribute('aria-expanded','false');if(focusBtn)lvbtn.focus()}
@@ -646,10 +687,10 @@ lvMenu.addEventListener('keydown',e=>{
 });
 function unitItems(u){const L=state.level;return u?BY[L].filter(d=>d.u===u):BY[L]}
 function renderUnitMenu(){
-  const L=state.level,u=unit(),all=BY[L],ca=counts(all);
-  let h=`<button class="ucell uall" data-u="0" aria-current="${u===0}"><b>${L10.allU}</b><small>${L10.words(fmt(all.length))} · ${L10.greenN(fmt(ca.green))}</small><span class="mbar"><span class="stack">${stackH(ca,all.length)}</span></span></button>`;
-  for(let k=1;k<=UNITS[L];k++){const it=unitItems(k),c=counts(it);
-    h+=`<button class="ucell${c.green===it.length?' done':''}" data-u="${k}" aria-current="${u===k}" aria-label="${L10.unit} ${k}"><b>${L10.uS}${pad(k)}</b><small>${L10.greenOf(c.green,it.length)}</small><span class="mbar"><span class="stack">${stackH(c,it.length)}</span></span></button>`}
+  const L=state.level,u=unit(),Sa=summary(BY[L]);
+  let h=`<button class="ucell uall" data-u="0" aria-current="${u===0}"><b>${L10.allU}</b><small>${L10.words(fmt(Sa.n))} · ${pctTxt(Sa.p)} · ${L10.matureOf(fmt(Sa.mature),fmt(Sa.n))}</small><span class="mbar"><span class="stack">${stackH(Sa)}</span></span></button>`;
+  for(let k=1;k<=UNITS[L];k++){const S=summary(unitItems(k));
+    h+=`<button class="ucell${S.mature===S.n?' done':''}" data-u="${k}" aria-current="${u===k}" aria-label="${L10.unit} ${k}"><b>${L10.uS}${pad(k)}</b><small>${pctTxt(S.p)}</small><span class="mbar"><span class="stack">${stackH(S)}</span></span></button>`}
   uGrid.innerHTML=h;
 }
 function openUMenu(){closeMenu(false);renderUnitMenu();uMenu.hidden=false;ubtn.setAttribute('aria-expanded','true');const cur=uGrid.querySelector('[aria-current="true"]');cur?.scrollIntoView({block:'nearest'});cur?.focus()}
@@ -718,7 +759,7 @@ window.addEventListener('languagechange',()=>{if(langPref==='auto'&&sysLang()!==
 const view=$('view');
 function itemH(d,q){return `<article class="item" tabindex="0">
       <div class="ihead"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span></div>
-      <span class="nos">${q?chip(d.l):''}<i class="sd s-${bandOf(d)}" title="${esc(stTxt(d))}"></i><span class="no">${String(d.n).padStart(4,'0')}</span></span></div>
+      <span class="nos">${q?chip(d.l):''}<i class="sd ${mcls(d)}" title="${esc(stTxt(d))}"></i><span class="no">${String(d.n).padStart(4,'0')}</span></span></div>
       <div class="mean">${mH(M(d))}</div>
       <div class="ex"><div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div></div>
     </article>`}
@@ -805,13 +846,15 @@ view.addEventListener('click',e=>{
 /* ---------- stats screen ---------- */
 let stLevel=1,stSel=null,stConfirm=false;
 function renderStats(){
-  const arr=BY[stLevel],tot=arr.length,c=counts(arr),pc=Math.round(c.green/tot*100);
+  const arr=BY[stLevel],S=summary(arr);
   $('stLevels').innerHTML=LEVELS.map(l=>`<button data-sl="${l}" style="--lc:var(--l${l})" aria-pressed="${l===stLevel}">HSK ${l}</button>`).join('');
-  $('stSum').innerHTML=`<div class="big">${pc}%<small>${L10.memo}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(tot))} · ${L10.practiced(fmt(c.green+c.yellow+c.red))}</div>`;
-  $('stStack').innerHTML=stackH(c,tot);
-  $('stKeys').innerHTML=[['red','0–35%'],['yellow','36–69%'],['green','70–100%'],['none','']].map(([b,r])=>`<div class="key"><b><i class="sd s-${b}"></i>${fmt(c[b])}</b>${L10.band[b]}${r?' · '+r:''}</div>`).join('');
-  let g='';for(let u=1;u<=UNITS[stLevel];u++){const it=arr.filter(d=>d.u===u),k=it.filter(isKnown).length;
-    g+=`<div class="ublock"><div class="ulabel">${L10.unit.toUpperCase()} ${pad(u)} <span>· ${L10.greenOf(k,it.length)}</span></div><div class="dots">${it.map(d=>`<button class="s-${bandOf(d)}" data-sid="${esc(d.id)}" aria-current="${d.id===stSel}" aria-label="${esc(d.h)} ${L10.band[bandOf(d)]}" title="${esc(d.h)}"></button>`).join('')}</div></div>`}
+  $('stSum').innerHTML=`<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n-S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
+  $('stStack').innerHTML=stackH(S);
+  $('stKeys').innerHTML=[['red','0–6'],['yellow','7–13'],['green','14–20'],['none','']].map(([b,r])=>`<div class="key"><b><i class="sd s-${b}"></i>${fmt(S[b])}</b>${L10.band[b]}${r?' · '+L10.lvlWord+' '+r:''}</div>`).join('');
+  $('stScale').innerHTML=`<div class="scale">${Array.from({length:MAXL},(_,i)=>`<i class="m${i+1} mbg" title="${i+1}"></i>`).join('')}</div>
+    <div class="scalelbl"><span style="grid-column:1">1</span><span style="grid-column:7">7</span><span style="grid-column:14">14</span><span class="end">20 · ${L10.matureWord}</span></div>`;
+  let g='';for(let u=1;u<=UNITS[stLevel];u++){const it=arr.filter(d=>d.u===u),Su=summary(it);
+    g+=`<div class="ublock"><div class="ulabel">${L10.unit.toUpperCase()} ${pad(u)} <span>· ${pctTxt(Su.p)} · ${L10.matureOf(Su.mature,Su.n)}</span></div><div class="dots">${it.map(d=>`<button class="${mcls(d)}" data-sid="${esc(d.id)}" aria-current="${d.id===stSel}" aria-label="${esc(d.h)} · ${esc(stTxt(d))}" title="${esc(d.h)}"></button>`).join('')}</div></div>`}
   $('stGrid').innerHTML=g;
   renderDetail();renderFoot();
 }
