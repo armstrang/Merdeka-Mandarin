@@ -58,12 +58,14 @@ header.top{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;padding-
 .iconbtn:hover{color:var(--fg);border-color:var(--mute)}
 
 /* level dropdown */
-.lvwrap{position:relative;flex:0 1 380px;min-width:0}
+.pickers{position:relative;flex:0 1 460px;min-width:0;display:flex;gap:8px}
+.lvwrap{flex:3 1 0;min-width:0}
+.unitwrap{flex:1 1 0;min-width:min-content}
 .lvbtn{width:100%;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 12px 0 14px}
 .lvbtn:hover{border-color:var(--acc)}
 .lvbtn .l,.lvrow .l{display:flex;align-items:center;gap:10px;min-width:0}
 .lvbtn .r,.lvrow .r{display:flex;align-items:center;gap:10px;flex:none}
-.lvbtn b{font-size:15px;font-weight:800}
+.lvbtn b{font-size:15px;font-weight:800;white-space:nowrap}
 .lvbtn small{font-size:12.5px;color:var(--soft);white-space:nowrap}
 .lvbtn .pct{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
 .lvbtn svg{width:16px;height:16px;color:var(--mute);transition:transform .2s}
@@ -111,20 +113,12 @@ html[lang="th"] .id{font-style:normal}
 .modes{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:12px}
 .modes button{flex:1 1 auto;white-space:nowrap;border:0;background:transparent;padding:7px 16px;border-radius:9px;font-weight:700;font-size:14px;color:var(--soft)}
 .modes button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.unitwrap{position:relative;display:flex;gap:6px;min-width:0;width:min(100%,480px)}
-.ustep{width:40px;height:40px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--soft);display:grid;place-items:center;padding:0}
-.ustep svg{width:16px;height:16px}
-.ustep:disabled{opacity:.4;cursor:default}
-.ustep:not(:disabled):hover{border-color:var(--acc);color:var(--fg)}
-.ubtn{flex:1;min-width:0;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 10px 0 12px}
-.ubtn:hover{border-color:var(--acc)}
-.ubtn .l{display:flex;align-items:baseline;gap:8px;min-width:0;white-space:nowrap;overflow:hidden}
-.ubtn b{font-size:14px;font-weight:800}
-.ubtn small{font-size:12px;color:var(--soft)}
-.ubtn .r{display:flex;align-items:center;gap:8px;flex:none}
-.ubtn .mbar{width:56px}
-.ubtn .pct{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
-.ubtn svg{width:15px;height:15px;color:var(--mute);transition:transform .2s}
+.ubtn{width:100%;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 10px 0 12px;text-align:left}
+.ubtn:hover,.ubtn[aria-expanded="true"],.lvbtn[aria-expanded="true"]{border-color:var(--acc)}
+.ubtn .uv{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.ubtn small{font-size:10.5px;font-weight:600;color:var(--soft);white-space:nowrap}
+.ubtn b{font-size:15px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ubtn svg{width:15px;height:15px;flex:none;color:var(--mute);transition:transform .2s}
 .ubtn[aria-expanded="true"] svg{transform:rotate(180deg)}
 .umenu{max-height:min(380px,60vh);overflow:auto;padding:8px}
 .ugrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:6px}
@@ -138,7 +132,7 @@ html[lang="th"] .id{font-style:normal}
 .ucell.done b::after{content:" ✓";color:var(--s-green)}
 .ucell.uall{grid-column:1/-1;flex-direction:row;align-items:center;gap:10px}
 .ucell.uall .mbar{flex:1;width:auto}
-.tools{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .search{flex:1 1 220px;min-width:0;position:relative}
 .search input{width:100%;height:38px;padding:0 12px 0 34px;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--fg);font:inherit;font-size:14px}
 .search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--mute)}
@@ -253,13 +247,13 @@ html[lang="th"] .id{font-style:normal}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 14px;border-radius:11px;font-size:13px;font-weight:700;z-index:60;white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
 
 @media (max-width:719px){
-  .lvwrap{flex:1 1 100%;order:3}
+  .pickers{flex:1 1 100%;order:3}
   .bar-sticky{grid-template-columns:1fr}
   .keys{grid-template-columns:repeat(2,1fr)}
 }
-@media (max-width:520px){.ubtn small{display:none}.stlv button{font-size:11.5px}.hz{font-size:24px}.flip{height:380px}.lvbtn small{display:none}
+@media (max-width:520px){.lvbtn .mbar{width:52px}.stlv button{font-size:11.5px}.hz{font-size:24px}.flip{height:380px}.lvbtn small{display:none}
   .modal{padding:0;align-items:flex-end}.sheet{border-radius:22px 22px 0 0;max-height:92%;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
-@media (max-width:400px){header.top{column-gap:8px}.langbtn svg{display:none}.langbtn{padding:0 11px}.modes button{padding:7px 10px}}
+@media (max-width:400px){header.top{column-gap:8px}.lvbtn{padding:0 10px 0 12px;gap:8px}.lvbtn .r{gap:6px}.lvbtn .mbar{width:40px}.langbtn svg{display:none}.langbtn{padding:0 11px}.modes button{padding:7px 10px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -269,18 +263,27 @@ html[lang="th"] .id{font-style:normal}
       <div class="seal" id="seal" aria-hidden="true">一</div>
       <h1>Merdeka Mandarin <span class="by">by <em>Jorgi</em></span></h1>
     </div>
-    <div class="lvwrap" id="lvwrap">
-      <button class="lvbtn" id="lvbtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lvMenu">
-        <span class="l"><i class="ldot"></i><b id="lvName">HSK 1</b><small id="lvTotal"></small></span>
-        <span class="r"><span class="mbar"><span class="stack" id="lvBar"></span></span><span class="pct" id="lvPct">0%</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
-      </button>
+    <div class="pickers" id="pickers">
+      <div class="lvwrap" id="lvwrap">
+        <button class="lvbtn" id="lvbtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lvMenu">
+          <span class="l"><i class="ldot"></i><b id="lvName">HSK 1</b><small id="lvTotal"></small></span>
+          <span class="r"><span class="mbar"><span class="stack" id="lvBar"></span></span><span class="pct" id="lvPct">0%</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+      </div>
+      <div class="unitwrap" id="unitwrap">
+        <button class="ubtn" id="ubtn" aria-haspopup="true" aria-expanded="false" aria-controls="uMenu">
+          <span class="uv"><small id="uLabel">Unit</small><b id="uName">01</b></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </div>
       <div class="menu" id="lvMenu" hidden>
         <div class="mhead" id="allHead"></div>
         <div id="lvList" role="listbox" data-i18n-aria="pickLv"></div>
         <div class="msep"></div>
         <button class="mstats" id="openStats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/></svg><span data-i18n="fullStats"></span></span>›</button>
       </div>
+      <div class="menu umenu" id="uMenu" hidden><div class="ugrid" id="uGrid" role="group" data-i18n-aria="pickU"></div></div>
     </div>
     <div class="langwrap" id="langwrap">
       <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9"/></svg><b id="langCode">ID</b></button>
@@ -297,16 +300,6 @@ html[lang="th"] .id{font-style:normal}
       <button id="m-list" data-mode="list" aria-pressed="true" data-i18n="list"></button>
       <button id="m-card" data-mode="card" aria-pressed="false" data-i18n="card"></button>
       <button id="m-quiz" data-mode="quiz" aria-pressed="false" data-i18n="quiz"></button>
-    </div>
-    <div class="unitwrap" id="unitwrap">
-      <button class="ustep" id="uPrev" data-i18n-aria="uPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>
-      <button class="ubtn" id="ubtn" aria-haspopup="true" aria-expanded="false" aria-controls="uMenu">
-        <span class="l"><b id="uName">Unit 01</b><small id="uRange">No. 1–50</small></span>
-        <span class="r"><span class="mbar"><span class="stack" id="uBar"></span></span><span class="pct" id="uCount">0/50</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
-      </button>
-      <button class="ustep" id="uNext" data-i18n-aria="uNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
-      <div class="menu umenu" id="uMenu" hidden><div class="ugrid" id="uGrid" role="group" data-i18n-aria="pickU"></div></div>
     </div>
     <div class="tools" id="listTools">
       <label class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -355,7 +348,7 @@ id:{name:'Bahasa Indonesia',loc:'id-ID',langHead:'Bahasa belajar',names:{id:'Ind
   words:n=>`${n} kata`,allLv:(k,t)=>`Semua level · <b>${k}</b> / ${t} kata dihafal`,pickLv:'Pilih level HSK',fullStats:'Lihat statistik lengkap',
   theme:'Tema',tap:'Ketuk untuk ganti',th:{auto:'Otomatis',light:'Terang',dark:'Gelap'},
   modesL:'Mode belajar',list:'Daftar',card:'Kartu',quiz:'Kuis',
-  unit:'Unit',uS:'U',uPrev:'Unit sebelumnya',uNext:'Unit berikutnya',allU:'Semua unit',pickU:'Pilih unit',
+  unit:'Unit',uS:'U',allShort:'Semua',auto:'Ikuti sistem',allU:'Semua unit',pickU:'Pilih unit',
   search:'Cari hanzi, pinyin, atau arti',searchL:'Cari kata',hide:'Sembunyikan arti',weak:'Belum hijau',
   toneL:'Warna nada',tone:n=>`nada ${n}`,neutral:'netral',
   foot:'Kosakata HSK 1–6 dari silabus ujian HSK terbitan November 2025 (data terbuka {src}). Arti dan contoh kalimat ditulis oleh Claude. Progres tersimpan di browser ini saja.',
@@ -378,7 +371,7 @@ en:{name:'English',loc:'en-US',langHead:'Study language',names:{id:'Indonesian',
   words:n=>`${n} words`,allLv:(k,t)=>`All levels · <b>${k}</b> / ${t} words memorized`,pickLv:'Choose HSK level',fullStats:'View full statistics',
   theme:'Theme',tap:'Tap to change',th:{auto:'Auto',light:'Light',dark:'Dark'},
   modesL:'Study mode',list:'List',card:'Cards',quiz:'Quiz',
-  unit:'Unit',uS:'U',uPrev:'Previous unit',uNext:'Next unit',allU:'All units',pickU:'Choose unit',
+  unit:'Unit',uS:'U',allShort:'All',auto:'Follow system',allU:'All units',pickU:'Choose unit',
   search:'Search hanzi, pinyin or meaning',searchL:'Search words',hide:'Hide meanings',weak:'Not green yet',
   toneL:'Tone colors',tone:n=>`tone ${n}`,neutral:'neutral',
   foot:'HSK 1–6 vocabulary from the HSK exam syllabus published in November 2025 (open data {src}). Meanings and example sentences written by Claude. Progress is saved in this browser only.',
@@ -401,7 +394,7 @@ th:{name:'ไทย',loc:'th-TH',langHead:'ภาษาที่ใช้เร�
   words:n=>`${n} คำ`,allLv:(k,t)=>`ทุกระดับ · จำได้ <b>${k}</b> / ${t} คำ`,pickLv:'เลือกระดับ HSK',fullStats:'ดูสถิติทั้งหมด',
   theme:'ธีม',tap:'แตะเพื่อเปลี่ยน',th:{auto:'อัตโนมัติ',light:'สว่าง',dark:'มืด'},
   modesL:'โหมดการเรียน',list:'รายการ',card:'บัตรคำ',quiz:'แบบทดสอบ',
-  unit:'ยูนิต',uS:'U',uPrev:'ยูนิตก่อนหน้า',uNext:'ยูนิตถัดไป',allU:'ทุกยูนิต',pickU:'เลือกยูนิต',
+  unit:'ยูนิต',uS:'U',allShort:'ทั้งหมด',auto:'ตามระบบ',allU:'ทุกยูนิต',pickU:'เลือกยูนิต',
   search:'ค้นหาอักษรจีน พินอิน หรือความหมาย',searchL:'ค้นหาคำ',hide:'ซ่อนความหมาย',weak:'ยังไม่เขียว',
   toneL:'สีวรรณยุกต์',tone:n=>`เสียง ${n}`,neutral:'เสียงเบา',
   foot:'คำศัพท์ HSK 1–6 จากหลักสูตรการสอบ HSK ฉบับพฤศจิกายน 2025 (ข้อมูลเปิด {src}) ความหมายและประโยคตัวอย่างเขียนโดย Claude ความคืบหน้าบันทึกไว้ในเบราว์เซอร์นี้เท่านั้น',
@@ -424,7 +417,7 @@ vi:{name:'Tiếng Việt',loc:'vi-VN',langHead:'Ngôn ngữ học',names:{id:'Ti
   words:n=>`${n} từ`,allLv:(k,t)=>`Tất cả cấp · đã thuộc <b>${k}</b> / ${t} từ`,pickLv:'Chọn cấp HSK',fullStats:'Xem thống kê đầy đủ',
   theme:'Giao diện',tap:'Chạm để đổi',th:{auto:'Tự động',light:'Sáng',dark:'Tối'},
   modesL:'Chế độ học',list:'Danh sách',card:'Thẻ',quiz:'Kiểm tra',
-  unit:'Bài',uS:'B',uPrev:'Bài trước',uNext:'Bài sau',allU:'Tất cả bài',pickU:'Chọn bài',
+  unit:'Bài',uS:'B',allShort:'Tất cả',auto:'Theo hệ thống',allU:'Tất cả bài',pickU:'Chọn bài',
   search:'Tìm chữ Hán, pinyin hoặc nghĩa',searchL:'Tìm từ',hide:'Ẩn nghĩa',weak:'Chưa xanh',
   toneL:'Màu thanh điệu',tone:n=>`thanh ${n}`,neutral:'thanh nhẹ',
   foot:'Từ vựng HSK 1–6 theo đề cương thi HSK ban hành tháng 11/2025 (dữ liệu mở {src}). Nghĩa và câu ví dụ do Claude viết. Tiến độ chỉ được lưu trên trình duyệt này.',
@@ -444,7 +437,11 @@ vi:{name:'Tiếng Việt',loc:'vi-VN',langHead:'Ngôn ngữ học',names:{id:'Ti
   rsNote:'Màu được tính từ số câu trả lời đúng trên tổng số câu trả lời trong Thẻ, Kiểm tra và nút Biết/Chưa ở đây.',
   rsAsk:l=>`↺ Học lại tiến độ HSK ${l}`,rsDone:l=>`Đã xóa tiến độ HSK ${l}`}
 };
-let lang=(()=>{const s=ls.get('mm_lang',null);if(LANGS.includes(s))return s;const n=(navigator.language||'').toLowerCase();return n.startsWith('th')?'th':n.startsWith('vi')?'vi':'id'})();
+/* 'auto' follows the phone/browser language; unsupported languages fall back to English */
+function sysLang(){const list=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||''];
+  for(const n of list){const c=String(n).toLowerCase().slice(0,2);if(c==='id'||c==='in'||c==='ms')return 'id';if(c==='en'||c==='th'||c==='vi')return c}return 'en'}
+let langPref=ls.get('mm_lang','auto');if(langPref!=='auto'&&!LANGS.includes(langPref))langPref='auto';
+let lang=langPref==='auto'?sysLang():langPref;
 let L10=I18N[lang];
 const M=d=>lang==='en'?d.em:lang==='th'?d.hm:lang==='vi'?d.vm:d.m;
 const TR=d=>lang==='en'?d.et:lang==='th'?d.ht:lang==='vi'?d.vt:d.t;
@@ -534,8 +531,8 @@ lvMenu.addEventListener('keydown',e=>{
   else if(e.key==='Escape'){e.preventDefault();closeMenu(true)}
 });
 document.addEventListener('click',e=>{
-  if(!lvMenu.hidden&&!e.target.closest('#lvwrap'))closeMenu(false);
-  if(!uMenu.hidden&&!e.target.closest('#unitwrap'))closeUMenu(false);
+  if(!lvMenu.hidden&&!e.target.closest('#lvwrap,#lvMenu'))closeMenu(false);
+  if(!uMenu.hidden&&!e.target.closest('#unitwrap,#uMenu'))closeUMenu(false);
   if(!langMenu.hidden&&!e.target.closest('#langwrap'))closeLang(false)});
 function setLevel(l){state.level=l;state.shown=60;state.q='';document.getElementById('q').value='';saveUI();
   document.body.dataset.level=l;document.getElementById('seal').textContent=NUM[l-1];startCards();startQuiz();refresh()}
@@ -543,14 +540,17 @@ function setLevel(l){state.level=l;state.shown=60;state.q='';document.getElement
 /* language dropdown */
 const langBtn=document.getElementById('langBtn'),langMenu=document.getElementById('langMenu'),langList=document.getElementById('langList');
 const CHECK='<svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const DEVICE='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>';
 function renderLangMenu(){
-  langList.innerHTML=LANGS.map(l=>{const own=I18N[l].name,loc=L10.names[l];
-    return `<button class="lgrow" role="option" data-lang="${l}" lang="${l}" aria-selected="${l===lang}"><span class="lgcode">${l.toUpperCase()}</span><span class="nm"><b>${esc(own)}</b>${loc!==own?`<small lang="${lang}">${esc(loc)}</small>`:''}</span>${CHECK}</button>`}).join('');
+  const sl=sysLang();
+  langList.innerHTML=`<button class="lgrow" role="option" data-lang="auto" aria-selected="${langPref==='auto'}"><span class="lgcode">${DEVICE}</span><span class="nm"><b>${esc(L10.auto)}</b><small lang="${sl}">${esc(I18N[sl].name)}</small></span>${CHECK}</button><div class="msep"></div>`+
+  LANGS.map(l=>{const own=I18N[l].name,loc=L10.names[l];
+    return `<button class="lgrow" role="option" data-lang="${l}" lang="${l}" aria-selected="${langPref===l}"><span class="lgcode">${l.toUpperCase()}</span><span class="nm"><b>${esc(own)}</b>${loc!==own?`<small lang="${lang}">${esc(loc)}</small>`:''}</span>${CHECK}</button>`}).join('');
 }
 function openLang(){closeMenu(false);closeUMenu(false);renderLangMenu();langMenu.hidden=false;langBtn.setAttribute('aria-expanded','true');(langList.querySelector('[aria-selected="true"]')||langList.firstElementChild).focus()}
 function closeLang(focusBtn){langMenu.hidden=true;langBtn.setAttribute('aria-expanded','false');if(focusBtn)langBtn.focus()}
 langBtn.onclick=()=>langMenu.hidden?openLang():closeLang(false);
-langList.onclick=e=>{const r=e.target.closest('.lgrow');if(!r)return;closeLang(true);if(r.dataset.lang!==lang)setLang(r.dataset.lang)};
+langList.onclick=e=>{const r=e.target.closest('.lgrow');if(!r)return;closeLang(true);if(r.dataset.lang!==langPref)setLang(r.dataset.lang)};
 langMenu.addEventListener('keydown',e=>{
   const rows=[...langList.querySelectorAll('.lgrow')],i=rows.indexOf(document.activeElement);
   if(e.key==='ArrowDown'){e.preventDefault();rows[(i+1)%rows.length].focus()}
@@ -568,22 +568,25 @@ function applyStatic(){
   document.getElementById('footP').innerHTML=esc(L10.foot).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
   themeLabels();
 }
-function setLang(l){
-  lang=l;L10=I18N[l];ls.set('mm_lang',l);buildKeys();applyStatic();
-  if(qz.cur&&new Set(qz.opts.map(M1)).size<qz.opts.length&&!qz.answered)newQ();
-  refresh();if(!modal.hidden)renderStats();toast(L10.name);
+function setLang(pref,silent){
+  langPref=pref;ls.set('mm_lang',pref);
+  const l=pref==='auto'?sysLang():pref,changed=l!==lang;
+  lang=l;L10=I18N[l];
+  if(changed){buildKeys();applyStatic();
+    if(qz.cur&&!qz.answered&&new Set(qz.opts.map(M1)).size<qz.opts.length)newQ();
+    refresh();if(!modal.hidden)renderStats()}
+  if(!silent)toast(pref==='auto'?L10.auto+' · '+L10.name:L10.name);
 }
+window.addEventListener('languagechange',()=>{if(langPref==='auto'&&sysLang()!==lang)setLang('auto',true)});
 
 /* unit dropdown */
-const ubtn=document.getElementById('ubtn'),uMenu=document.getElementById('uMenu'),uGrid=document.getElementById('uGrid'),uPrev=document.getElementById('uPrev'),uNext=document.getElementById('uNext');
+const ubtn=document.getElementById('ubtn'),uMenu=document.getElementById('uMenu'),uGrid=document.getElementById('uGrid');
 function unitItems(u){const L=state.level;return u?BY[L].filter(d=>d.u===u):BY[L]}
 function renderUnits(){
-  const L=state.level,u=unit(),it=unitItems(u),c=counts(it);
-  document.getElementById('uName').textContent=u?L10.unit+' '+pad(u):L10.allU;
-  document.getElementById('uRange').textContent=u?`No. ${(u-1)*50+1}–${(u-1)*50+it.length}`:L10.words(fmt(it.length));
-  document.getElementById('uBar').innerHTML=stackH(c,it.length);
-  document.getElementById('uCount').textContent=`${c.green}/${it.length}`;
-  uPrev.disabled=u<=1;uNext.disabled=u>=UNITS[L];
+  const u=unit();
+  document.getElementById('uLabel').textContent=L10.unit;
+  document.getElementById('uName').textContent=u?pad(u):L10.allShort;
+  ubtn.setAttribute('aria-label',u?L10.unit+' '+u:L10.allU);
   if(!uMenu.hidden)renderUnitMenu();
 }
 function renderUnitMenu(){
@@ -598,8 +601,6 @@ function closeUMenu(focusBtn){uMenu.hidden=true;ubtn.setAttribute('aria-expanded
 ubtn.onclick=()=>uMenu.hidden?openUMenu():closeUMenu(false);
 function setUnit(u){state.unitBy[state.level]=u;state.shown=60;saveUI();startCards();startQuiz();refresh()}
 uGrid.onclick=e=>{const b=e.target.closest('.ucell');if(!b)return;closeUMenu(true);setUnit(+b.dataset.u)};
-uPrev.onclick=()=>{if(unit()>1)setUnit(unit()-1)};
-uNext.onclick=()=>{if(unit()<UNITS[state.level])setUnit(unit()+1)};
 uMenu.addEventListener('keydown',e=>{
   const cells=[...uGrid.querySelectorAll('.ucell')],i=cells.indexOf(document.activeElement);
   if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();cells[Math.min(i+1,cells.length-1)].focus()}
@@ -657,39 +658,40 @@ view.addEventListener('click',e=>{
 });
 
 /* quiz */
-let qz={type:'meaning',cur:null,opts:[],answered:false,right:0,total:0,streak:0};
+let qz={type:'meaning',cur:null,opts:[],answered:false,pick:-1,right:0,total:0,streak:0};
 function startQuiz(){qz.right=0;qz.total=0;qz.streak=0;newQ()}
 function newQ(){const p=pool();const weak=p.filter(d=>!isKnown(d));const src=weak.length&&Math.random()<.7?weak:p;const d=src[Math.random()*src.length|0];
   const lvl=BY[d.l],seen=new Set([M1(d)]),picks=[];
   for(const x of shuffle(lvl.filter(x=>x.id!==d.id&&(unit()?Math.abs(x.u-d.u)<=2:true)))){const k=M1(x);if(seen.has(k))continue;seen.add(k);picks.push(x);if(picks.length===3)break}
-  qz.cur=d;qz.opts=shuffle([d,...picks]);qz.answered=false}
+  qz.cur=d;qz.opts=shuffle([d,...picks]);qz.answered=false;qz.pick=-1}
 function scoreH(){return `<span>${L10.right} <b>${qz.right}</b> / ${qz.total}</span><span>${L10.streak} <b>${qz.streak}</b></span><span>${where()}</span>`}
+/* The whole question, including the answered state, is drawn from qz — so any re-render
+   (language switch, theme, level refresh) keeps the feedback and the "next" button. */
 function renderQuiz(){
-  if(!qz.cur||qz.cur.l!==state.level)newQ();const d=qz.cur,T=qz.type,mp=M(d).split(';');
+  if(!qz.cur||qz.cur.l!==state.level)newQ();const d=qz.cur,T=qz.type,mp=M(d).split(';'),ans=qz.answered,ok=ans&&qz.opts[qz.pick]?.id===d.id;
   const prompt=T==='meaning'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
     :T==='hanzi'?`<div class="q">${L10.qHz}</div><div style="font-size:22px;font-weight:800">${esc(mp[0])}</div><div class="id">${esc(mp.slice(1).join(';'))}</div>`
     :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`;
   const lab=o=>T==='meaning'?esc(M1(o)):`<span style="font-family:var(--f-hz);font-weight:900;font-size:20px">${esc(o.h)}</span>`;
+  const cls=(o,i)=>!ans?'':o.id===d.id?' class="ok"':i===qz.pick?' class="ng"':'';
+  const fb=!ans?'':`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
+    <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span></div><div class="mean">${mH(M(d))}</div>
+    <div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
   view.innerHTML=`<div class="quiz"><div class="qtype" role="group" aria-label="${L10.qTypeL}">
      <button data-qt="meaning" aria-pressed="${T==='meaning'}">${L10.tMean}</button><button data-qt="hanzi" aria-pressed="${T==='hanzi'}">${L10.tHz}</button><button data-qt="cloze" aria-pressed="${T==='cloze'}">${L10.tCloze}</button></div>
    <div class="score">${scoreH()}</div>
    <div class="qcard">${prompt}
-     <div class="opts">${qz.opts.map((o,i)=>`<button data-i="${i}" ${qz.answered?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div>
-     <div class="feedback" id="fb"></div></div></div>`;
+     <div class="opts">${qz.opts.map((o,i)=>`<button data-i="${i}"${cls(o,i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div>
+     <div class="feedback" id="fb">${fb}</div></div></div>`;
 }
 view.addEventListener('click',e=>{
   if(state.mode!=='quiz')return;
   const t=e.target.closest('[data-qt]');if(t){qz.type=t.dataset.qt;startQuiz();renderQuiz();return}
-  if(e.target.id==='qNext'){newQ();renderQuiz();return}
+  if(e.target.closest('#qNext')){newQ();renderQuiz();return}
   const b=e.target.closest('.opts button');if(!b||qz.answered)return;
-  qz.answered=true;qz.total++;const pick=qz.opts[+b.dataset.i],d=qz.cur,ok=pick.id===d.id;
+  const d=qz.cur;qz.answered=true;qz.pick=+b.dataset.i;qz.total++;const ok=qz.opts[qz.pick].id===d.id;
   if(ok){qz.right++;qz.streak++}else qz.streak=0;
-  record(d,ok);
-  document.querySelectorAll('.opts button').forEach((x,i)=>{x.disabled=true;if(qz.opts[i].id===d.id)x.classList.add('ok');else if(x===b)x.classList.add('ng')});
-  document.querySelector('.score').innerHTML=scoreH();
-  document.getElementById('fb').innerHTML=`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
-    <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span></div><div class="mean">${mH(M(d))}</div>
-    <div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
+  record(d,ok);renderQuiz();
 });
 
 /* stats sheet */
@@ -751,7 +753,7 @@ window.mmBack=function(){
 
 /* wiring */
 function setMode(m){state.mode=m;saveUI();document.querySelectorAll('.modes button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m));
-  document.getElementById('listTools').hidden=m!=='list';refresh()}
+  document.getElementById('listTools').hidden=m!=='list';document.getElementById('footP').hidden=m!=='list';refresh()}
 document.querySelector('.modes').onclick=e=>{const b=e.target.closest('button');if(b){if(b.dataset.mode==='card')startCards();if(b.dataset.mode==='quiz')startQuiz();setMode(b.dataset.mode)}};
 document.getElementById('q').oninput=e=>{state.q=e.target.value;state.shown=60;renderList()};
 const hideBtn=document.getElementById('hideMean'),weakBtn=document.getElementById('onlyNew');
