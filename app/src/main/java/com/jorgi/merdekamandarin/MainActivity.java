@@ -1,0 +1,133 @@
+package com.jorgi.merdekamandarin;
+
+import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.webkit.WebViewAssetLoader;
+
+/**
+ * Hosts the Merdeka Mandarin page (assets/index.html) in a WebView.
+ * The page is served from https://appassets.androidplatform.net so it gets a stable origin
+ * and localStorage (study progress, theme, language) survives app restarts and updates.
+ */
+public class MainActivity extends AppCompatActivity {
+
+    private static final String HOST = "appassets.androidplatform.net";
+    private static final String START_URL = "https://" + HOST + "/assets/index.html";
+
+    private WebView web;
+
+    @SuppressLint("SetJavaScriptEnabled")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        web = new WebView(this);
+        web.setBackgroundColor(Color.TRANSPARENT);
+        setContentView(web);
+
+        final WebViewAssetLoader loader = new WebViewAssetLoader.Builder()
+                .setDomain(HOST)
+                .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
+                .build();
+
+        WebSettings s = web.getSettings();
+        s.setJavaScriptEnabled(true);
+        s.setDomStorageEnabled(true);
+        s.setAllowFileAccess(false);
+        s.setAllowContentAccess(false);
+        s.setTextZoom(100);
+
+        web.addJavascriptInterface(new Bridge(), "MMAndroid");
+
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return loader.shouldInterceptRequest(request.getUrl());
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri uri = request.getUrl();
+                if (HOST.equals(uri.getHost())) return false;
+                // Outside links (e.g. the data source on GitHub) open in the browser.
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                } catch (ActivityNotFoundException ignored) {
+                }
+                return true;
+            }
+        });
+
+        if (savedInstanceState != null) {
+            web.restoreState(savedInstanceState);
+        } else {
+            web.loadUrl(START_URL);
+        }
+
+        // Back closes an open menu or popup first; only then leaves the app.
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                web.evaluateJavascript("(window.mmBack&&window.mmBack())?'1':'0'", value -> {
+                    if (!"\"1\"".equals(value)) finish();
+                });
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        web.saveState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (web != null) {
+            web.destroy();
+            web = null;
+        }
+        super.onDestroy();
+    }
+
+    /** Lets the page match the status and navigation bars to its light or dark theme. */
+    private class Bridge {
+        @JavascriptInterface
+        public void setTheme(final boolean dark) {
+            runOnUiThread(() -> applyBars(dark));
+        }
+    }
+
+    private void applyBars(boolean dark) {
+        Window w = getWindow();
+        int bg = dark ? Color.parseColor("#0F1218") : Color.parseColor("#F4F5F7");
+        w.setStatusBarColor(bg);
+        w.setNavigationBarColor(bg);
+        View decor = w.getDecorView();
+        int flags = decor.getSystemUiVisibility();
+        if (dark) {
+            flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+        } else {
+            flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+        }
+        decor.setSystemUiVisibility(flags);
+    }
+}
