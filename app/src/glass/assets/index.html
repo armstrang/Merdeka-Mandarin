@@ -294,78 +294,90 @@ html[lang="th"] .id{font-style:normal}
 </style>
 <style>
 /* ================= Liquid Glass skin (V2) =================
-   Quiet studio background (soft gray gradient, or pure black), clear glass panels with a thin
-   bright rim, a soft shadow under them and a specular glint that follows the finger.
-   Blur is used only where content slides underneath (floating header, menus, pop-ups),
-   so scrolling stays smooth. */
+   Light comes from the top-left, where the HSK logo sits: a soft glow in the level's colour spreads
+   from that corner, and the glass panels are clear enough to show it through them. Each panel has a
+   bright rim (strongest top-left and bottom-right), a glossy highlight along its top, an inner glow
+   that gives it thickness, and a soft shadow. Everything behind the glass is static, so it stays smooth. */
+@property --tone{syntax:'<color>';inherits:true;initial-value:#2f8a4c}
 :root{
-  --bg:#eceef1; --surface:#f7f8fa; --sunk:#e0e3e8; --line:#d8dbe1; --s-none:#d0d4db;
-  --bg-top:#f5f6f8; --bg-bot:#dfe2e7; --sheen:rgba(255,255,255,.7); --bar:#f5f6f8; --bar2:#dfe2e7;
-  --g-fill:linear-gradient(180deg,rgba(255,255,255,.62),rgba(255,255,255,.26));
-  --g-solid:rgba(255,255,255,.62);
-  --g-head:rgba(245,246,248,.80);
-  --g-edge:rgba(20,25,40,.10);
-  --g-rim:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.4) 26%,rgba(255,255,255,0) 50%,rgba(255,255,255,.4) 74%,#fff 100%);
-  --g-inset:inset 0 1px 1px rgba(255,255,255,.95),inset 0 -1px 2px rgba(20,25,40,.05);
-  --g-drop:0 12px 26px -16px rgba(20,25,40,.38),0 2px 5px -3px rgba(20,25,40,.10);
-  --g-spec:rgba(255,255,255,.75);
-  --lens:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.62));
+  --bg:#eceef1; --surface:#f6f7f9; --sunk:#e0e3e8; --line:#d6dae0; --s-none:#cfd3da;
+  --bg-top:#f5f6f8; --bg-bot:#e1e4e9; --bar:#f5f6f8; --bar2:#e1e4e9; --glow-o:55%;
+  --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.62),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.10) 55%,rgba(255,255,255,.18));
+  --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.5),rgba(255,255,255,0) 60%),rgba(255,255,255,.46);
+  --g-head:rgba(246,247,249,.60);
+  --g-edge:rgba(255,255,255,.45);
+  --g-rim:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.6) 15%,rgba(255,255,255,.06) 40%,rgba(255,255,255,.04) 62%,rgba(255,255,255,.55) 86%,#fff 100%);
+  --g-inset:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -16px 26px -20px rgba(255,255,255,.85),inset 0 0 0 .5px rgba(255,255,255,.35);
+  --g-drop:0 20px 40px -24px rgba(25,35,60,.45),0 3px 8px -4px rgba(25,35,60,.14);
+  --g-blur:blur(16px) saturate(210%) brightness(1.03);
+  --g-spec:rgba(255,255,255,.8);
+  --lens:radial-gradient(120% 80% at 20% -20%,#fff,rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.45));
   --spring:cubic-bezier(.34,1.56,.64,1); --ease:cubic-bezier(.22,1,.36,1);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#24272d; --surface:#2b2e35; --sunk:#363940; --line:#3c4048; --s-none:#474b54;
+  --bg:#23262c; --surface:#2a2d34; --sunk:#353840; --line:#3a3e46; --s-none:#454952;
   --fg:#eceef2; --soft:#a9aeb8; --mute:#80868f;
-  --bg-top:#34373e; --bg-bot:#17191d; --sheen:rgba(255,255,255,.05); --bar:#34373e; --bar2:#17191d;
-  --g-fill:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
-  --g-solid:rgba(255,255,255,.05);
-  --g-head:rgba(44,47,54,.80);
-  --g-edge:rgba(0,0,0,.42);
-  --g-rim:linear-gradient(135deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.12) 26%,rgba(255,255,255,0) 50%,rgba(255,255,255,.10) 74%,rgba(255,255,255,.55) 100%);
-  --g-inset:inset 0 1px 0 rgba(255,255,255,.10),inset 0 -1px 2px rgba(0,0,0,.25);
-  --g-drop:0 14px 28px -16px rgba(0,0,0,.75);
-  --g-spec:rgba(255,255,255,.13);
-  --lens:linear-gradient(180deg,rgba(255,255,255,.20),rgba(255,255,255,.06))}}
+  --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
+  --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
+  --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
+  --g-head:rgba(40,43,50,.62);
+  --g-edge:rgba(255,255,255,.07);
+  --g-rim:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.25) 15%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.22) 86%,rgba(255,255,255,.62) 100%);
+  --g-inset:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -16px 26px -20px rgba(255,255,255,.14);
+  --g-drop:0 22px 40px -22px rgba(0,0,0,.85);
+  --g-blur:blur(16px) saturate(180%);
+  --g-spec:rgba(255,255,255,.16);
+  --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}}
 :root[data-theme="dark"]{
-  --bg:#24272d; --surface:#2b2e35; --sunk:#363940; --line:#3c4048; --s-none:#474b54;
+  --bg:#23262c; --surface:#2a2d34; --sunk:#353840; --line:#3a3e46; --s-none:#454952;
   --fg:#eceef2; --soft:#a9aeb8; --mute:#80868f;
-  --bg-top:#34373e; --bg-bot:#17191d; --sheen:rgba(255,255,255,.05); --bar:#34373e; --bar2:#17191d;
-  --g-fill:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.025));
-  --g-solid:rgba(255,255,255,.05);
-  --g-head:rgba(44,47,54,.80);
-  --g-edge:rgba(0,0,0,.42);
-  --g-rim:linear-gradient(135deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.12) 26%,rgba(255,255,255,0) 50%,rgba(255,255,255,.10) 74%,rgba(255,255,255,.55) 100%);
-  --g-inset:inset 0 1px 0 rgba(255,255,255,.10),inset 0 -1px 2px rgba(0,0,0,.25);
-  --g-drop:0 14px 28px -16px rgba(0,0,0,.75);
-  --g-spec:rgba(255,255,255,.13);
-  --lens:linear-gradient(180deg,rgba(255,255,255,.20),rgba(255,255,255,.06))}
-/* True black: pure #000 for OLED screens, glass reduced to a faint fill and a crisp rim */
+  --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
+  --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
+  --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
+  --g-head:rgba(40,43,50,.62);
+  --g-edge:rgba(255,255,255,.07);
+  --g-rim:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.25) 15%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.22) 86%,rgba(255,255,255,.62) 100%);
+  --g-inset:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -16px 26px -20px rgba(255,255,255,.14);
+  --g-drop:0 22px 40px -22px rgba(0,0,0,.85);
+  --g-blur:blur(16px) saturate(180%);
+  --g-spec:rgba(255,255,255,.16);
+  --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}
+/* True black: pure #000 for OLED screens; only the level glow and the glass edges catch the light */
 :root[data-theme="black"]{
-  --bg:#000000; --surface:#0b0b0c; --sunk:#1a1a1d; --fg:#f4f4f6; --soft:#a2a2a9; --mute:#75757c; --line:#232327;
+  --bg:#000000; --surface:#0b0b0c; --sunk:#1a1a1d; --fg:#f4f4f6; --soft:#a2a2a9; --mute:#75757c; --line:#26262a;
   --mark:#4a3a10; --on-acc:#000000; --shadow:0 18px 50px rgba(0,0,0,.8);
   --l1:#6fd08f; --l2:#5cc8cf; --l3:#6dbbea; --l4:#94a3f5; --l5:#bf9af0; --l6:#ec8dbd;
   --t1:#ff7a66; --t2:#f2a64a; --t3:#5fd38f; --t4:#79a6ff; --t5:#9aa39e;
   --s-red:#ff6b6b; --s-yellow:#f5d04a; --s-green:#62d26f; --s-none:#2b2b2f;
   --good:#5fd38f; --bad:#ff7a66; color-scheme:dark;
-  --bg-top:#000000; --bg-bot:#000000; --sheen:transparent; --bar:#000000; --bar2:#000000;
-  --g-fill:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.02));
-  --g-solid:rgba(255,255,255,.045);
-  --g-head:rgba(0,0,0,.74);
-  --g-edge:rgba(255,255,255,.05);
-  --g-rim:linear-gradient(135deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.10) 26%,rgba(255,255,255,0) 50%,rgba(255,255,255,.08) 74%,rgba(255,255,255,.45) 100%);
-  --g-inset:inset 0 1px 0 rgba(255,255,255,.08);
-  --g-drop:0 12px 24px -18px rgba(0,0,0,.9);
-  --g-spec:rgba(255,255,255,.11);
-  --lens:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.05))}
+  --bg-top:#000000; --bg-bot:#000000; --bar:#000000; --bar2:#000000; --glow-o:34%;
+  --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.14),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02) 55%,rgba(255,255,255,.04));
+  --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.08),rgba(255,255,255,0) 60%),rgba(255,255,255,.04);
+  --g-head:rgba(0,0,0,.6);
+  --g-edge:rgba(255,255,255,.06);
+  --g-rim:linear-gradient(135deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.2) 15%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.18) 86%,rgba(255,255,255,.55) 100%);
+  --g-inset:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -16px 26px -20px rgba(255,255,255,.10);
+  --g-drop:0 20px 36px -22px rgba(0,0,0,.95);
+  --g-blur:blur(16px) saturate(180%);
+  --g-spec:rgba(255,255,255,.14);
+  --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.3),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.05))}
 
-/* ---- background: one static layer, no animation ---- */
+/* ---- background: a static glow in the level colour from the top-left corner (fades to the new colour on level change) ---- */
 body{background:var(--bg)}
-.liquid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(75% 45% at 18% 32%,var(--sheen),transparent 72%),linear-gradient(180deg,var(--bg-top),var(--bg-bot))}
+.liquid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;--tone:var(--acc);transition:--tone .9s ease;
+  --gx:calc(max(16px,50vw - 280px) + 20px);--gy:36px;   /* centre of the HSK logo on Home */
+  background:radial-gradient(90vmax 90vmax at var(--gx) var(--gy),color-mix(in srgb,var(--tone) var(--glow-o),transparent) 0%,color-mix(in srgb,var(--tone) calc(var(--glow-o)*.4),transparent) 36%,transparent 72%),
+    linear-gradient(180deg,var(--bg-top),var(--bg-bot))}
+/* in the Android app, a few pixels at the very top blend into the status bar colour */
+html.app .liquid-bg::after{content:"";position:absolute;left:0;right:0;top:0;height:18px;background:linear-gradient(var(--bar),transparent)}
 
 /* ---- glass ---- */
 .hero,.tile,.lvseg,.frow,.backbtn,.pchip,.langbtn,.iconbtn,.qcard,.tchip,.ghost,.no-btn,.more,.qsel select,.search input,.stlv button,.danger,.menu,.stdetail,.toast,.opts button{
   background:var(--g-fill);border:1px solid var(--g-edge);box-shadow:var(--g-inset),var(--g-drop)}
 .item,.face,.key,.ucell{background:var(--g-solid);border:1px solid var(--g-edge);box-shadow:var(--g-inset),var(--g-drop)}
-.frow,.menu,.stdetail,.toast{background:var(--g-head);-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%)}
+/* real frosting where it shows: the home panels (they sit still) and the floating layers */
+.hero,.tile,.lvseg,.langbtn,.iconbtn,.qcard{-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur)}
+.frow,.menu,.stdetail,.toast{background:var(--g-head);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur)}
 /* thin bright rim, as on real glass */
 .hero,.tile,.lvseg,.backbtn,.pchip,.langbtn,.iconbtn,.qcard,.no-btn,.yes-btn,.next,.opts button{position:relative}
 .hero::after,.tile::after,.lvseg::after,.frow::after,.backbtn::after,.pchip::after,.langbtn::after,.iconbtn::after,.qcard::after,.face::after,.lens::after,.no-btn::after,.yes-btn::after,.next::after,.menu::after{
@@ -387,7 +399,7 @@ body{background:var(--bg)}
 html.vt .screen{animation:none}
 
 /* ---- home ---- */
-header.top .seal{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),var(--g-drop)}
+header.top .seal{position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -6px 12px -8px rgba(0,0,0,.2),0 8px 22px -6px color-mix(in srgb,var(--acc) 75%,transparent),0 0 46px 6px color-mix(in srgb,var(--acc) 32%,transparent)}
 .langbtn,.iconbtn{border-radius:999px}
 .iconbtn{width:42px;height:42px}.langbtn{height:42px;padding:0 13px}
 .lvseg{position:relative;border-radius:22px;padding:4px;margin-bottom:12px}
@@ -401,15 +413,15 @@ header.top .seal{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),var(--g-drop)}
   box-shadow:var(--g-inset),0 6px 14px -8px rgba(0,0,0,.35);will-change:transform}
 .lens.drag{transform:scale(1.1,1.16)}
 .hero{border-radius:30px;transition:transform .6s var(--spring)}
-.ring .trk{stroke:var(--sunk)}
+.ring .trk{stroke:color-mix(in srgb,var(--fg) 9%,transparent)}
 .ring .sg{transition:stroke-dasharray 1s var(--ease),stroke-dashoffset 1s var(--ease)}
 .hfoot{border-top-color:var(--line)}
 .tile{border-radius:26px}
-.tile .ic{border-radius:15px;background:var(--g-solid);border:1px solid var(--g-edge);box-shadow:var(--g-inset);color:var(--acc)}
+.tile .ic{border-radius:15px;background:color-mix(in srgb,var(--acc) 16%,transparent);border:1px solid var(--g-edge);box-shadow:var(--g-inset);color:var(--acc)}
 .allnote{color:var(--soft)}
 
 /* ---- focused screens ---- */
-.fbar{background:linear-gradient(180deg,var(--bg-top) 0,var(--bg-top) 45%,transparent);border-bottom:0;padding-bottom:8px;margin-bottom:10px}
+.fbar{background:linear-gradient(180deg,var(--bar) 0,color-mix(in srgb,var(--bar) 70%,transparent) 40%,transparent);border-bottom:0;padding-bottom:8px;margin-bottom:10px}
 .frow{border-radius:24px;padding:6px;gap:6px}
 .frow h2{padding-left:4px}
 .backbtn{width:40px;height:40px;border-radius:999px}
@@ -1099,6 +1111,7 @@ applyStatic();saveStats();startCards();startQuiz();go('home');
 const reduce=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}})();
 const root=document.documentElement;
 const hasVT=!!document.startViewTransition&&!reduce;
+if(window.MMAndroid)root.classList.add('app');
 
 /* 1. specular highlight that follows the finger / pointer across glass */
 const GLASS='.hero,.tile,.backbtn,.pchip,.langbtn,.iconbtn,.qcard,.opts button,.no-btn,.yes-btn,.next';
