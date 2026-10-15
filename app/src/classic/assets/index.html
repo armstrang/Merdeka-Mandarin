@@ -222,10 +222,6 @@ html[lang="th"] .id{font-style:normal}
 
 /* quiz */
 .qhead{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;margin-bottom:10px}
-.qsel{position:relative;display:inline-flex}
-.qsel select{appearance:none;-webkit-appearance:none;height:36px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;padding:0 32px 0 12px;font-size:13px;font-weight:700}
-.qsel select:hover{border-color:var(--acc)}
-.qsel svg{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--mute);pointer-events:none}
 .score{display:flex;gap:12px;font-size:12.5px;color:var(--soft);font-variant-numeric:tabular-nums}
 .score b{color:var(--fg);font-size:14px}
 .qcard{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--acc);border-radius:22px;padding:20px 18px;text-align:center}
@@ -244,6 +240,60 @@ html[lang="th"] .id{font-style:normal}
 .legend b{font-family:var(--f-hz);font-size:14px}
 .foot-note p{margin:0;max-width:640px;text-wrap:balance}
 .foot-note a{color:var(--soft)}
+
+/* quiz type dropdown */
+.qsel{position:relative}
+.qtbtn{height:38px;display:flex;align-items:center;gap:8px;padding:0 10px 0 5px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:800;white-space:nowrap}
+.qtbtn svg{width:14px;height:14px;color:var(--mute);transition:transform .2s}
+.qtbtn[aria-expanded="true"]{border-color:var(--acc)}
+.qtbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.qti{width:48px;flex:none;height:28px;padding:0;border-radius:999px;display:grid;place-items:center;font-size:11.5px;font-weight:800;letter-spacing:.02em;font-family:var(--f-zh),var(--f-ui);color:var(--acc);background:color-mix(in srgb,var(--acc) 13%,transparent);white-space:nowrap}
+.qmenu{left:0;right:auto;top:calc(100% + 8px);width:min(330px,calc(100vw - 32px));min-width:0}
+.qtrow{width:100%;border:0;background:transparent;border-radius:13px;display:flex;align-items:center;gap:12px;padding:9px 10px;text-align:left}
+.qtrow:hover{background:var(--sunk)}
+.qtrow .nm{display:flex;flex-direction:column;line-height:1.25;flex:1;min-width:0}
+.qtrow b{font-size:14px;font-weight:800}
+.qtrow small{font-size:11.5px;color:var(--soft)}
+.qtrow .ck{width:16px;height:16px;flex:none;color:var(--acc);visibility:hidden}
+.qtrow[aria-selected="true"]{background:color-mix(in srgb,var(--acc) 11%,transparent)}
+.qtrow[aria-selected="true"] .qti{background:var(--acc);color:var(--on-acc)}
+.qtrow[aria-selected="true"] .ck{visibility:visible}
+
+/* tone colours & info */
+.excl{width:24px;height:24px;flex:none;border-radius:50%;border:1.8px solid currentColor;display:grid;place-items:center;font-size:13px;font-weight:900;line-height:1;font-family:var(--f-ui)}
+.toneinfo{display:flex;align-items:center;gap:10px;margin:14px auto 0;padding:8px 14px 8px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--soft);font-size:12.5px;font-weight:700;max-width:100%}
+.toneinfo .excl{color:var(--acc)}
+.toneinfo .tz{display:flex;gap:3px;font-family:var(--f-hz);font-weight:900;font-size:15px;line-height:1}
+.toneinfo .tl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toneinfo .chev{color:var(--mute);font-size:16px;line-height:1}
+.toneinfo:hover{border-color:var(--acc)}
+.sheetwrap{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center}
+.scrim2{position:absolute;inset:0;background:rgba(10,12,18,.45);animation:fadeIn .25s ease both}
+.isheet{position:relative;width:100%;max-width:520px;max-height:88vh;overflow:auto;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:var(--shadow);padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));animation:sheetUp .35s cubic-bezier(.22,1,.36,1) both}
+@media (min-width:600px){.sheetwrap{align-items:center}.isheet{border-radius:26px}}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes sheetUp{from{transform:translateY(40px);opacity:0}}
+.ihead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.ihead .excl{color:var(--acc)}
+.ihead h2{margin:0;flex:1;font-size:18px;font-weight:800}
+.xbtn{width:36px;height:36px;border-radius:50%;border:0;background:var(--sunk);color:var(--soft);font-size:20px;line-height:1}
+.ilead{margin:0 0 12px;font-size:13.5px;color:var(--soft)}
+.tones{display:flex;flex-direction:column;gap:6px}
+.tone{display:grid;grid-template-columns:34px 38px 40px minmax(0,1fr) auto;align-items:center;gap:10px;padding:8px 10px;border-radius:14px;background:var(--sunk)}
+.tone .tz{font-family:var(--f-hz);font-weight:900;font-size:24px;line-height:1;text-align:center}
+.tone .tp{font-weight:800;font-size:14px}
+.tone .tc{width:40px;height:24px}
+.tone .tn{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.tone .tn b{font-size:13.5px}.tone .tn small{font-size:11.5px;color:var(--soft)}
+.tone .tm{font-size:12px;color:var(--soft);font-style:italic;text-align:right}
+.isec{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+.isec h3{margin:0 0 4px;font-size:14px;font-weight:800}
+.isec p{margin:0 0 10px;font-size:13px;color:var(--soft)}
+.gh{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:800;font-size:14px}
+.gh svg{width:20px;height:20px;flex:none}.gh span:nth-child(2){flex:1}.gh .ext{opacity:.7}
+.isec .icred{margin:12px 0 0;font-size:11.5px;color:var(--mute)}
+.isec .icred a{color:var(--soft)}
+@media (max-width:400px){.tone{grid-template-columns:30px 34px 34px minmax(0,1fr);gap:8px}.tone .tm{display:none}}
 
 /* stats screen */
 .stbody{display:flex;flex-direction:column;gap:12px}
@@ -300,7 +350,7 @@ html[lang="th"] .id{font-style:normal}
   <header class="top">
     <div class="brand">
       <div class="seal" id="seal" aria-hidden="true">一</div>
-      <h1>Merdeka Mandarin <span class="by">by <em>Jorgi</em></span></h1>
+      <h1>Merdeka Mandarin <span class="by">by <em>Armstrang</em></span></h1>
     </div>
     <div class="langwrap" id="langwrap">
       <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9"/></svg><b id="langCode">ID</b></button>
@@ -333,6 +383,7 @@ html[lang="th"] .id{font-style:normal}
   </nav>
 
   <p class="allnote" id="allNote"></p>
+  <button class="toneinfo" id="toneInfo" aria-haspopup="dialog"><span class="excl" aria-hidden="true">!</span><span class="tz"><b class="t1">妈</b><b class="t2">麻</b><b class="t3">马</b><b class="t4">骂</b><b class="t5">吗</b></span><span class="tl" data-i18n="infoBtn"></span><span class="chev" aria-hidden="true">›</span></button>
 </section>
 
 <!-- ===== List / Cards / Quiz (one focused task at a time) ===== -->
@@ -385,6 +436,20 @@ html[lang="th"] .id{font-style:normal}
   </div>
 </section>
 
+</div>
+<div class="sheetwrap" id="infoSheet" hidden>
+  <div class="scrim2" data-close></div>
+  <div class="isheet" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="ihead"><span class="excl" aria-hidden="true">!</span><h2 id="infoTitle" data-i18n="infoTitle"></h2><button class="xbtn" data-close data-i18n-aria="close">×</button></div>
+    <p class="ilead" data-i18n="infoLead"></p>
+    <div class="tones" id="infoTones"></div>
+    <div class="isec">
+      <h3 data-i18n="aboutT"></h3>
+      <p data-i18n="about"></p>
+      <a class="gh" href="https://github.com/armstrang" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg><span>github.com/armstrang</span><span class="ext" aria-hidden="true">↗</span></a>
+      <p class="icred" id="infoCred"></p>
+    </div>
+  </div>
 </div>
 <div class="toast" id="toast" hidden></div>
 
@@ -520,6 +585,18 @@ I18N.id.th.black='Hitam pekat';I18N.en.th.black='True black';I18N.th.th.black='�
 Object.assign(I18N.id,{back:'Kembali',statsShort:'Statistik',subList:'Lihat & cari kata',subCard:'Latihan menghafal',subQuiz:'Uji pemahaman'});
 Object.assign(I18N.en,{back:'Back',statsShort:'Stats',subList:'Browse & search',subCard:'Practice recall',subQuiz:'Test yourself'});
 Object.assign(I18N.th,{back:'กลับ',statsShort:'สถิติ',subList:'ดูและค้นหาคำ',subCard:'ฝึกจำคำศัพท์',subQuiz:'ทดสอบความเข้าใจ'});
+Object.assign(I18N.id,{infoBtn:'Warna nada & info',infoTitle:'Warna nada',infoLead:'Warna hanzi dan pinyin menunjukkan nadanya. Ucapkan sesuai warnanya:',aboutT:'Tentang',about:'Merdeka Mandarin dibuat oleh Armstrang.',
+  tones:[['Nada 1','Tinggi dan datar','ibu'],['Nada 2','Naik, seperti bertanya','rami'],['Nada 3','Turun lalu naik','kuda'],['Nada 4','Turun tajam, tegas','memarahi'],['Netral','Ringan dan pendek','partikel tanya']],
+  dMean:'Lihat hanzi, pilih artinya',dHz:'Lihat arti, pilih hanzinya',dCloze:'Isi kata yang hilang di kalimat'});
+Object.assign(I18N.en,{infoBtn:'Tone colours & info',infoTitle:'Tone colours',infoLead:'The colour of each hanzi and its pinyin shows the tone. Say it the way the colour tells you:',aboutT:'About',about:'Merdeka Mandarin is made by Armstrang.',
+  tones:[['Tone 1','High and level','mother'],['Tone 2','Rising, like a question','hemp'],['Tone 3','Dips, then rises','horse'],['Tone 4','Sharp fall, firm','to scold'],['Neutral','Light and short','question particle']],
+  dMean:'See the hanzi, pick its meaning',dHz:'See the meaning, pick the hanzi',dCloze:'Fill the missing word in a sentence'});
+Object.assign(I18N.th,{infoBtn:'สีวรรณยุกต์และข้อมูล',infoTitle:'สีวรรณยุกต์',infoLead:'สีของอักษรจีนและพินอินบอกวรรณยุกต์ ออกเสียงตามสีที่เห็น:',aboutT:'เกี่ยวกับ',about:'Merdeka Mandarin สร้างโดย Armstrang',
+  tones:[['เสียง 1','สูงและเรียบ','แม่'],['เสียง 2','ขึ้น เหมือนถามคำถาม','ป่าน'],['เสียง 3','ลงแล้วขึ้น','ม้า'],['เสียง 4','ลงเร็วและหนักแน่น','ดุด่า'],['เสียงเบา','เบาและสั้น','คำช่วยคำถาม']],
+  dMean:'ดูอักษรจีน เลือกความหมาย',dHz:'ดูความหมาย เลือกอักษรจีน',dCloze:'เติมคำที่หายไปในประโยค'});
+Object.assign(I18N.vi,{infoBtn:'Màu thanh điệu & thông tin',infoTitle:'Màu thanh điệu',infoLead:'Màu của chữ Hán và pinyin cho biết thanh điệu. Hãy đọc theo màu:',aboutT:'Giới thiệu',about:'Merdeka Mandarin do Armstrang thực hiện.',
+  tones:[['Thanh 1','Cao và ngang','mẹ'],['Thanh 2','Đi lên, như khi hỏi','cây gai'],['Thanh 3','Xuống rồi lên','ngựa'],['Thanh 4','Rơi mạnh, dứt khoát','mắng'],['Thanh nhẹ','Nhẹ và ngắn','trợ từ nghi vấn']],
+  dMean:'Xem chữ Hán, chọn nghĩa',dHz:'Xem nghĩa, chọn chữ Hán',dCloze:'Điền từ còn thiếu vào câu'});
 Object.assign(I18N.vi,{back:'Quay lại',statsShort:'Thống kê',subList:'Xem & tìm từ',subCard:'Luyện ghi nhớ',subQuiz:'Tự kiểm tra'});
 
 /* 'auto' follows the phone/browser language; unsupported languages fall back to English */
@@ -840,16 +917,25 @@ function renderQuiz(){
   const fb=!ans?'':`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
     <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span></div><div class="mean">${mH(M(d))}</div>
     <div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
-  view.innerHTML=`<div class="qhead"><span class="qsel"><select id="qType" aria-label="${L10.qTypeL}">
-      <option value="meaning"${T==='meaning'?' selected':''}>${L10.tMean}</option><option value="hanzi"${T==='hanzi'?' selected':''}>${L10.tHz}</option><option value="cloze"${T==='cloze'?' selected':''}>${L10.tCloze}</option>
-     </select>${CHEV}</span><div class="score">${scoreH()}</div></div>
+  const QT=[['meaning',L10.tMean,L10.dMean,'汉→a'],['hanzi',L10.tHz,L10.dHz,'a→汉'],['cloze',L10.tCloze,L10.dCloze,'汉＿']],cur=QT.find(q=>q[0]===T);
+  view.innerHTML=`<div class="qhead"><div class="qsel" id="qsel">
+      <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
+      <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q=>`<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0]===T}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
+     </div><div class="score">${scoreH()}</div></div>
    <div class="qcard">${prompt}
      <div class="opts">${qz.opts.map((o,i)=>`<button data-i="${i}"${cls(o,i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div>
      <div class="feedback" id="fb">${fb}</div></div>`;
 }
-view.addEventListener('change',e=>{if(state.screen==='quiz'&&e.target.id==='qType'){qz.type=e.target.value;startQuiz();renderQuiz()}});
+const qMenuOpen=()=>{const m=$('qTypeMenu');return !!m&&!m.hidden};
+function qMenu(open){const m=$('qTypeMenu'),b=$('qTypeBtn');if(!m)return;m.hidden=!open;b.setAttribute('aria-expanded',open);if(open)(m.querySelector('[aria-selected="true"]')||m.firstElementChild).focus()}
+view.addEventListener('keydown',e=>{if(!qMenuOpen())return;const rows=[...$('qTypeMenu').querySelectorAll('.qtrow')],i=rows.indexOf(document.activeElement);
+  if(e.key==='ArrowDown'){e.preventDefault();rows[(i+1)%rows.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();rows[(i-1+rows.length)%rows.length].focus()}
+  else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();qMenu(false);$('qTypeBtn').focus()}});
+document.addEventListener('click',e=>{if(qMenuOpen()&&!e.target.closest('#qsel'))qMenu(false)});
 view.addEventListener('click',e=>{
   if(state.screen!=='quiz')return;
+  if(e.target.closest('#qTypeBtn')){qMenu(!qMenuOpen());return}
+  const qt=e.target.closest('.qtrow');if(qt){if(qt.dataset.qt!==qz.type){qz.type=qt.dataset.qt;startQuiz()}renderQuiz();$('qTypeBtn')?.focus();return}
   if(e.target.closest('#qNext')){newQ();renderQuiz();return}
   const b=e.target.closest('.opts button');if(!b||qz.answered)return;
   const d=qz.cur;qz.answered=true;qz.pick=+b.dataset.i;qz.total++;const ok=qz.opts[qz.pick].id===d.id;
@@ -890,18 +976,35 @@ scrStats.addEventListener('click',e=>{
   if(e.target.id==='rsYes'){BY[stLevel].forEach(d=>delete stats[d.id]);saveStats();stConfirm=false;stSel=null;
     if(state.level===stLevel){startCards();startQuiz()}afterChange();toast(L10.rsDone(stLevel))}
 });
+/* ---------- tone colours & info sheet ---------- */
+const infoSheet=$('infoSheet');
+const TONE_PATH=['M4 6H36','M4 17L36 5','M4 9Q16 24 23 18T36 5','M4 4L36 20',''];
+function renderInfo(){
+  $('infoTones').innerHTML=L10.tones.map(([n,dsc,ex],i)=>{const t=i+1,[h,p]=[['妈','mā'],['麻','má'],['马','mǎ'],['骂','mà'],['吗','ma']][i];
+    return `<div class="tone"><span class="tz t${t}">${h}</span><span class="tp t${t}">${p}</span><svg class="tc t${t}" viewBox="0 0 40 24" aria-hidden="true">${TONE_PATH[i]?`<path d="${TONE_PATH[i]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`:'<circle cx="20" cy="14" r="3.2" fill="currentColor"/>'}</svg><span class="tn"><b>${n}</b><small>${dsc}</small></span><span class="tm">${esc(ex)}</span></div>`}).join('');
+  $('infoCred').innerHTML=esc(L10.foot).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
+}
+let infoOpener=null;
+function openInfo(){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';infoSheet.querySelector('.xbtn').focus()}
+function closeInfo(){infoSheet.hidden=true;document.body.style.overflow='';infoOpener?.focus?.()}
+$('toneInfo').onclick=openInfo;
+infoSheet.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeInfo()});
+infoSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeInfo()}});
 let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2000)}
 
 /* ---------- keyboard + Android back ---------- */
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
 window.mmBack=function(){
+  if(window.mmBusy&&mmBusy())return true;   /* a screen animation is still running */
+  if(!infoSheet.hidden){closeInfo();return true}
+  if(qMenuOpen()){qMenu(false);return true}
   if(!langMenu.hidden){closeLang(false);return true}
   if(!lvMenu.hidden){closeMenu(false);return true}
   if(!uMenu.hidden){closeUMenu(false);return true}
   if(state.screen!=='home'){back();return true}
   return false};
 document.addEventListener('keydown',e=>{
-  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden)return;
+  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||qMenuOpen())return;
   if(e.key==='Escape'&&state.screen!=='home'&&!/^(INPUT|SELECT)$/.test(e.target.tagName)){back();return}
   if(/^(INPUT|SELECT)$/.test(e.target.tagName))return;
   if(state.screen==='card'){if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();flipped=!flipped;$('flip')?.classList.toggle('on',flipped)}
