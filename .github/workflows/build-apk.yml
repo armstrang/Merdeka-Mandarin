@@ -21,12 +21,20 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Build signed APKs (main + Liquid Glass V2)
+      # Version shown to people: 1.0, 1.1, ... (matches versionName in app/build.gradle)
+      - name: Version
+        run: echo "VER=1.$(( GITHUB_RUN_NUMBER > 12 ? GITHUB_RUN_NUMBER - 12 : 0 ))" >> "$GITHUB_ENV"
+
+      # The app page is built from web/src + web/data, so the APK always matches the source.
+      - name: Build app page
+        run: python3 web/build.py
+
+      - name: Build signed APK
         shell: bash
         run: |
           chmod +x gradlew
           set -o pipefail
-          if ! ./gradlew assembleClassicRelease assembleGlassRelease --no-daemon --stacktrace 2>&1 | tee build.log; then
+          if ! ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tee build.log; then
             # Surface the Gradle error as an annotation so it shows on the run summary page.
             msg=$(grep -A 30 "What went wrong" build.log | head -60)
             [ -z "$msg" ] && msg=$(grep -iE "error|exception" build.log | head -40)
@@ -35,37 +43,30 @@ jobs:
             echo "::error title=Gradle build failed::$msg"
             exit 1
           fi
-          cp app/build/outputs/apk/classic/release/app-classic-release.apk MerdekaMandarin.apk
-          cp app/build/outputs/apk/glass/release/app-glass-release.apk MerdekaMandarin-V2.apk
+          cp app/build/outputs/apk/release/app-release.apk MerdekaMandarin.apk
 
       - uses: actions/upload-artifact@v4
         with:
           name: MerdekaMandarin-apk
-          path: |
-            MerdekaMandarin.apk
-            MerdekaMandarin-V2.apk
+          path: MerdekaMandarin.apk
+
+      # Never mix a new build into an old release that happens to share its name (e.g. an old v1.3).
+      - name: Check the version name is free
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "v$VER" >/dev/null 2>&1; then
+            echo "::error title=Release v$VER already exists::Delete the old release and tag v$VER on GitHub, then re-run this workflow. The APK is still attached to this run as an artifact."
+            exit 1
+          fi
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.${{ github.run_number }}
-          name: Merdeka Mandarin v1.${{ github.run_number }}
+          tag_name: v${{ env.VER }}
+          name: Merdeka Mandarin v${{ env.VER }}
           body: |
             Unduh **MerdekaMandarin.apk** di bawah, lalu buka di HP Android untuk memasang.
-            Pembaruan bisa langsung dipasang di atas versi lama; progres belajar tetap tersimpan.
+            Pembaruan bisa langsung dipasang di atas versi sebelumnya; progres belajar tetap tersimpan.
           files: MerdekaMandarin.apk
           make_latest: true
-
-      # The Liquid Glass option lives in its own release, v1.5-V2, refreshed on every build.
-      - name: Publish 1.5-V2 (Liquid Glass)
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if gh release view v1.5-V2 >/dev/null 2>&1; then
-            gh release upload v1.5-V2 MerdekaMandarin-V2.apk --clobber
-          else
-            gh release create v1.5-V2 MerdekaMandarin-V2.apk --target "${{ github.sha }}" --latest=false \
-              --title "Merdeka Mandarin 1.5-V2 (Liquid Glass)" \
-              --notes "Versi opsi kedua dengan tampilan Liquid Glass. Unduh **MerdekaMandarin-V2.apk** lalu pasang. Aplikasi ini bernama *Merdeka Mandarin V2* dan bisa dipasang berdampingan dengan aplikasi utama (progres belajarnya terpisah)."
-          fi

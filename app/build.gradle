@@ -2,8 +2,10 @@ plugins {
     id 'com.android.application'
 }
 
-// Each GitHub Actions run gets a higher version number, so a new APK installs over the old one (progress is kept).
+// Each GitHub Actions run gets a higher versionCode, so a new APK installs over the old one (progress is kept).
+// The visible version starts again at 1.0 from run 12 (runs 1-11 were the earlier two-version builds).
 def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1').toInteger()
+def FIRST_RUN = 12
 
 android {
     namespace 'com.jorgi.merdekamandarin'
@@ -14,21 +16,7 @@ android {
         minSdk 24
         targetSdk 34
         versionCode runNumber
-        versionName "1.${runNumber}"
-    }
-
-    // Two looks of the same app: 'classic' is the main app, 'glass' is the Liquid Glass option (1.5-V2).
-    // Different application IDs, so both can be installed side by side.
-    flavorDimensions 'look'
-    productFlavors {
-        classic {
-            dimension 'look'
-        }
-        glass {
-            dimension 'look'
-            applicationIdSuffix '.v2'
-            versionName "1.5-V2.${runNumber}"
-        }
+        versionName "1.${Math.max(0, runNumber - FIRST_RUN)}"
     }
 
     signingConfigs {

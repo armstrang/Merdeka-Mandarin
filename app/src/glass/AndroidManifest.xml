@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Light haptic feedback on taps and quiz answers in the Liquid Glass version -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-</manifest>

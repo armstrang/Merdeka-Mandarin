@@ -1,0 +1,584 @@
+<div class="wrap">
+
+<!-- ===== Home ===== -->
+<section class="screen home" id="scr-home">
+  <header class="top">
+    <div class="brand">
+      <div class="seal" id="seal" aria-hidden="true">一</div>
+      <h1>Merdeka Mandarin <span class="by">by <em>Armstrang</em></span></h1>
+    </div>
+    <div class="langwrap" id="langwrap">
+      <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9"/></svg><b id="langCode">ID</b></button>
+      <div class="menu langmenu" id="langMenu" hidden>
+        <div class="mhead" data-i18n="langHead"></div>
+        <div id="langList" role="listbox" data-i18n-aria="langHead"></div>
+      </div>
+    </div>
+    <button class="iconbtn" id="themeBtn"></button>
+  </header>
+
+  <div class="lvpills" id="lvPills" role="group" data-i18n-aria="pickLv"></div>
+
+  <div class="hero" id="hero" role="button" tabindex="0">
+    <div class="ring">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="trk" cx="60" cy="60" r="52"/>
+        <g id="ringArcs"></g>
+      </svg>
+      <div class="rc"><b id="heroPct">0%</b><small id="heroLbl"></small></div>
+    </div>
+    <div class="hinfo"><div class="hlv" id="heroLv"></div><div class="hkeys" id="heroKeys"></div></div>
+    <div class="hfoot"><span class="cnt" id="heroCnt"></span><span class="go" id="heroGo"></span></div>
+  </div>
+
+  <nav class="tiles" data-i18n-aria="modesL">
+    <button class="tile" data-go="list"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg></span><b data-i18n="list"></b><small data-i18n="subList"></small></button>
+    <button class="tile" data-go="card"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="14" height="14" rx="2.5"/><path d="M7.5 3.5H18a2.5 2.5 0 0 1 2.5 2.5v10.5"/></svg></span><b data-i18n="card"></b><small data-i18n="subCard"></small></button>
+    <button class="tile" data-go="quiz"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.9.8c0 1.7-2.5 2.1-2.5 3.6"/><circle cx="12" cy="17.2" r="1.1" fill="currentColor" stroke="none"/></svg></span><b data-i18n="quiz"></b><small data-i18n="subQuiz"></small></button>
+  </nav>
+
+  <p class="allnote" id="allNote"></p>
+  <button class="toneinfo" id="toneInfo" aria-haspopup="dialog"><span class="excl" aria-hidden="true">!</span><span class="tz"><b class="t1">妈</b><b class="t2">麻</b><b class="t3">马</b><b class="t4">骂</b><b class="t5">吗</b></span><span class="tl" data-i18n="infoBtn"></span><span class="chev" aria-hidden="true">›</span></button>
+</section>
+
+<!-- ===== List / Cards / Quiz (one focused task at a time) ===== -->
+<section class="screen focus" id="scr-focus" hidden>
+  <div class="fbar">
+    <div class="frow">
+      <button class="backbtn" id="backBtn" data-i18n-aria="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <h2 id="fTitle" tabindex="-1"></h2>
+      <button class="pchip" id="lvbtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lvMenu"><b id="lvName">HSK 1</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <button class="pchip" id="ubtn" aria-haspopup="true" aria-expanded="false" aria-controls="uMenu"><span id="uName">Unit 01</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="menu" id="lvMenu" hidden>
+        <div class="mhead" id="allHead"></div>
+        <div id="lvList" role="listbox" data-i18n-aria="pickLv"></div>
+        <div class="msep"></div>
+        <button class="mstats" id="openStats"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/></svg><span data-i18n="fullStats"></span></span>›</button>
+      </div>
+      <div class="menu umenu" id="uMenu" hidden><div class="ugrid" id="uGrid" role="group" data-i18n-aria="pickU"></div></div>
+    </div>
+  </div>
+  <div class="tools" id="listTools">
+    <label class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" data-i18n-ph="search" data-i18n-aria="searchL" autocomplete="off"></label>
+    <button class="tchip" id="hideMean" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c5 0 9 4.5 10 7a13 13 0 0 1-3.2 4.2M6.2 6.2A13 13 0 0 0 2 12c1 2.5 5 7 10 7a9.8 9.8 0 0 0 4.3-1"/></svg><span data-i18n="hide"></span></button>
+    <button class="tchip" id="onlyNew" aria-pressed="false"><i class="sd s-yellow"></i><span data-i18n="weak"></span></button>
+  </div>
+  <main id="view"></main>
+  <div class="foot-note" id="footNote">
+    <div class="legend" id="legend" data-i18n-aria="toneL"></div>
+    <p id="footP"></p>
+  </div>
+</section>
+
+<!-- ===== Stats ===== -->
+<section class="screen stats" id="scr-stats" hidden>
+  <div class="fbar">
+    <div class="frow">
+      <button class="backbtn" id="stBack" data-i18n-aria="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <h2 id="stTitle" tabindex="-1" data-i18n="stTitle"></h2>
+    </div>
+  </div>
+  <div class="stbody">
+    <div class="lvpills" id="stLevels" role="group" data-i18n-aria="level"></div>
+    <div class="stsum" id="stSum"></div>
+    <div class="stbar"><div class="stack" id="stStack"></div></div>
+    <div class="keys" id="stKeys"></div>
+    <div class="scalewrap" id="stScale"></div>
+    <div class="grid-wrap" id="stGrid"></div>
+    <div class="stdetail" id="stDetail"></div>
+    <div class="stfoot" id="stFoot"></div>
+  </div>
+</section>
+
+</div>
+<div class="sheetwrap" id="infoSheet" hidden>
+  <div class="scrim2" data-close></div>
+  <div class="isheet" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="ihead"><span class="excl" aria-hidden="true">!</span><h2 id="infoTitle" data-i18n="infoTitle"></h2><button class="xbtn" data-close data-i18n-aria="close">×</button></div>
+    <p class="ilead" data-i18n="infoLead"></p>
+    <div class="tones" id="infoTones"></div>
+    <div class="isec">
+      <h3 data-i18n="aboutT"></h3>
+      <p data-i18n="about"></p>
+      <a class="gh" href="https://github.com/armstrang" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg><span>github.com/armstrang</span><span class="ext" aria-hidden="true">↗</span></a>
+      <p class="icred" id="infoCred"></p>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const DATA = __DATA__;
+const LEVELS=[1,2,3,4,5,6], NUM='一二三四五六';
+const BY={};LEVELS.forEach(l=>BY[l]=DATA.filter(d=>d.l===l));
+const UNITS={};LEVELS.forEach(l=>UNITS[l]=Math.max(...BY[l].map(d=>d.u)));
+const $=id=>document.getElementById(id);
+
+/* storage: per-viewer only */
+const ls={get(k,f){try{const v=localStorage.getItem(k);return v==null?f:JSON.parse(v)}catch(e){return f}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* study language: UI text + meanings + sentence translations */
+const LANGS=['id','en','th','vi'];
+__I18N__
+/* strings for the home screen and focused screens */
+Object.assign(I18N.id,{memoWord:'penguasaan',matureWord:'matang',lvlWord:'tingkat',weak:'Belum matang',
+  lvCount:(k,t)=>`<b>${k}</b> / ${t} kata matang`,allLv:(k,t)=>`Semua level · <b>${k}</b> / ${t} kata matang`,
+  matureOf:(k,n)=>`${k}/${n} matang`,matureN:k=>`${k} matang`,stTxt:(s,a,b)=>`Tingkat ${s}/20 · ${a} benar, ${b} salah`,
+  roundDone:'Satu putaran selesai. Kata yang belum matang akan muncul lagi di putaran berikutnya.',
+  rsNote:'Setiap jawaban benar (Kartu, Kuis, atau tombol Tahu) menaikkan kata 1 tingkat, sampai 20. Jawaban salah menurunkan 3 tingkat. Warnanya bergeser dari merah ke kuning ke hijau: warna muda berarti belum matang, warna pekat berarti matang.'});
+Object.assign(I18N.en,{memoWord:'mastery',matureWord:'mastered',lvlWord:'level',weak:'Not mastered',
+  lvCount:(k,t)=>`<b>${k}</b> / ${t} words mastered`,allLv:(k,t)=>`All levels · <b>${k}</b> / ${t} words mastered`,
+  matureOf:(k,n)=>`${k}/${n} mastered`,matureN:k=>`${k} mastered`,stTxt:(s,a,b)=>`Level ${s}/20 · ${a} right, ${b} wrong`,
+  roundDone:'Round complete. Words not yet mastered will come back next round.',
+  rsNote:'Each right answer (Cards, Quiz, or the Know it button) moves a word up 1 level, up to 20. A wrong answer moves it down 3. Colors shift from red to yellow to green: a light shade means still young, a deep shade means mature.'});
+Object.assign(I18N.th,{memoWord:'ความชำนาญ',matureWord:'ชำนาญ',lvlWord:'ระดับ',weak:'ยังไม่ชำนาญ',
+  lvCount:(k,t)=>`ชำนาญ <b>${k}</b> / ${t} คำ`,allLv:(k,t)=>`ทุกระดับ · ชำนาญ <b>${k}</b> / ${t} คำ`,
+  matureOf:(k,n)=>`ชำนาญ ${k}/${n}`,matureN:k=>`ชำนาญ ${k} คำ`,stTxt:(s,a,b)=>`ระดับ ${s}/20 · ถูก ${a} ผิด ${b}`,
+  roundDone:'จบหนึ่งรอบแล้ว คำที่ยังไม่ชำนาญจะกลับมาอีกในรอบถัดไป',
+  rsNote:'ตอบถูกแต่ละครั้ง (บัตรคำ แบบทดสอบ หรือปุ่มรู้แล้ว) คำนั้นจะขึ้น 1 ระดับ สูงสุด 20 ตอบผิดจะลดลง 3 ระดับ สีจะค่อย ๆ เปลี่ยนจากแดงเป็นเหลืองเป็นเขียว สีอ่อนหมายถึงยังไม่ชำนาญ สีเข้มหมายถึงชำนาญแล้ว'});
+Object.assign(I18N.vi,{memoWord:'mức thuộc',matureWord:'thuộc hẳn',lvlWord:'mức',weak:'Chưa thuộc hẳn',
+  lvCount:(k,t)=>`đã thuộc hẳn <b>${k}</b> / ${t} từ`,allLv:(k,t)=>`Tất cả cấp · đã thuộc hẳn <b>${k}</b> / ${t} từ`,
+  matureOf:(k,n)=>`${k}/${n} thuộc hẳn`,matureN:k=>`${k} thuộc hẳn`,stTxt:(s,a,b)=>`Mức ${s}/20 · ${a} đúng, ${b} sai`,
+  roundDone:'Xong một vòng. Những từ chưa thuộc hẳn sẽ xuất hiện lại ở vòng sau.',
+  rsNote:'Mỗi câu trả lời đúng (Thẻ, Kiểm tra hoặc nút Biết) nâng từ lên 1 mức, tối đa 20. Trả lời sai giảm 3 mức. Màu chuyển dần từ đỏ sang vàng rồi xanh: màu nhạt là còn non, màu đậm là đã thuộc hẳn.'});
+I18N.id.credit='Kosakata HSK 1–6 dari silabus ujian HSK terbitan November 2025 (data terbuka {src}). Progres tersimpan di perangkat ini saja.';
+I18N.en.credit='HSK 1–6 vocabulary from the HSK exam syllabus published in November 2025 (open data {src}). Progress is saved on this device only.';
+I18N.th.credit='คำศัพท์ HSK 1–6 จากหลักสูตรการสอบ HSK ฉบับพฤศจิกายน 2025 (ข้อมูลเปิด {src}) ความคืบหน้าบันทึกไว้ในอุปกรณ์นี้เท่านั้น';
+I18N.vi.credit='Từ vựng HSK 1–6 theo đề cương thi HSK ban hành tháng 11/2025 (dữ liệu mở {src}). Tiến độ chỉ được lưu trên thiết bị này.';
+I18N.id.th.black='Hitam pekat';I18N.en.th.black='True black';I18N.th.th.black='ดำสนิท';I18N.vi.th.black='Đen tuyền';
+Object.assign(I18N.id,{back:'Kembali',statsShort:'Statistik',subList:'Lihat & cari kata',subCard:'Latihan menghafal',subQuiz:'Uji pemahaman'});
+Object.assign(I18N.en,{back:'Back',statsShort:'Stats',subList:'Browse & search',subCard:'Practice recall',subQuiz:'Test yourself'});
+Object.assign(I18N.th,{back:'กลับ',statsShort:'สถิติ',subList:'ดูและค้นหาคำ',subCard:'ฝึกจำคำศัพท์',subQuiz:'ทดสอบความเข้าใจ'});
+Object.assign(I18N.id,{infoBtn:'Warna nada & info',infoTitle:'Warna nada',infoLead:'Warna hanzi dan pinyin menunjukkan nadanya. Ucapkan sesuai warnanya:',aboutT:'Tentang',about:'Merdeka Mandarin dibuat oleh Armstrang.',
+  tones:[['Nada 1','Tinggi dan datar','ibu'],['Nada 2','Naik, seperti bertanya','rami'],['Nada 3','Turun lalu naik','kuda'],['Nada 4','Turun tajam, tegas','memarahi'],['Netral','Ringan dan pendek','partikel tanya']],
+  dMean:'Lihat hanzi, pilih artinya',dHz:'Lihat arti, pilih hanzinya',dCloze:'Isi kata yang hilang di kalimat'});
+Object.assign(I18N.en,{infoBtn:'Tone colours & info',infoTitle:'Tone colours',infoLead:'The colour of each hanzi and its pinyin shows the tone. Say it the way the colour tells you:',aboutT:'About',about:'Merdeka Mandarin is made by Armstrang.',
+  tones:[['Tone 1','High and level','mother'],['Tone 2','Rising, like a question','hemp'],['Tone 3','Dips, then rises','horse'],['Tone 4','Sharp fall, firm','to scold'],['Neutral','Light and short','question particle']],
+  dMean:'See the hanzi, pick its meaning',dHz:'See the meaning, pick the hanzi',dCloze:'Fill the missing word in a sentence'});
+Object.assign(I18N.th,{infoBtn:'สีวรรณยุกต์และข้อมูล',infoTitle:'สีวรรณยุกต์',infoLead:'สีของอักษรจีนและพินอินบอกวรรณยุกต์ ออกเสียงตามสีที่เห็น:',aboutT:'เกี่ยวกับ',about:'Merdeka Mandarin สร้างโดย Armstrang',
+  tones:[['เสียง 1','สูงและเรียบ','แม่'],['เสียง 2','ขึ้น เหมือนถามคำถาม','ป่าน'],['เสียง 3','ลงแล้วขึ้น','ม้า'],['เสียง 4','ลงเร็วและหนักแน่น','ดุด่า'],['เสียงเบา','เบาและสั้น','คำช่วยคำถาม']],
+  dMean:'ดูอักษรจีน เลือกความหมาย',dHz:'ดูความหมาย เลือกอักษรจีน',dCloze:'เติมคำที่หายไปในประโยค'});
+Object.assign(I18N.vi,{infoBtn:'Màu thanh điệu & thông tin',infoTitle:'Màu thanh điệu',infoLead:'Màu của chữ Hán và pinyin cho biết thanh điệu. Hãy đọc theo màu:',aboutT:'Giới thiệu',about:'Merdeka Mandarin do Armstrang thực hiện.',
+  tones:[['Thanh 1','Cao và ngang','mẹ'],['Thanh 2','Đi lên, như khi hỏi','cây gai'],['Thanh 3','Xuống rồi lên','ngựa'],['Thanh 4','Rơi mạnh, dứt khoát','mắng'],['Thanh nhẹ','Nhẹ và ngắn','trợ từ nghi vấn']],
+  dMean:'Xem chữ Hán, chọn nghĩa',dHz:'Xem nghĩa, chọn chữ Hán',dCloze:'Điền từ còn thiếu vào câu'});
+Object.assign(I18N.vi,{back:'Quay lại',statsShort:'Thống kê',subList:'Xem & tìm từ',subCard:'Luyện ghi nhớ',subQuiz:'Tự kiểm tra'});
+
+/* 'auto' follows the phone/browser language; unsupported languages fall back to English */
+function sysLang(){const list=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||''];
+  for(const n of list){const c=String(n).toLowerCase().slice(0,2);if(c==='id'||c==='in'||c==='ms')return 'id';if(c==='en'||c==='th'||c==='vi')return c}return 'en'}
+let langPref=ls.get('mm_lang','auto');if(langPref!=='auto'&&!LANGS.includes(langPref))langPref='auto';
+let lang=langPref==='auto'?sysLang():langPref;
+let L10=I18N[lang];
+const M=d=>lang==='en'?d.em:lang==='th'?d.hm:lang==='vi'?d.vm:d.m;
+const TR=d=>lang==='en'?d.et:lang==='th'?d.ht:lang==='vi'?d.vt:d.t;
+const M1=d=>M(d).split(';')[0].trim();
+const fmt=n=>n.toLocaleString(L10.loc);
+
+const TONE={1:'āēīōūǖĀĒĪŌŪ',2:'áéíóúǘÁÉÍÓÚ',3:'ǎěǐǒǔǚǍĚǏǑǓ',4:'àèìòùǜÀÈÌÒÙ'};
+const tone=s=>{for(const t in TONE){for(const c of TONE[t]) if(s.includes(c)) return +t}return 5};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const plain=s=>s.normalize('NFD').replace(/\p{M}/gu,'').replace(/ü/g,'v').replace(/['\s]/g,'').toLowerCase();
+const unmark=s=>s.normalize('NFD').replace(/\p{M}/gu,'').replace(/đ/g,'d').replace(/Đ/g,'D');
+DATA.forEach(d=>{d.id=d.l+':'+d.h;d.pk=plain(d.p)});
+function buildKeys(){DATA.forEach(d=>{const m=M(d).toLowerCase();d.key=d.h+' '+d.pk+' '+m+(lang==='vi'?' '+unmark(m):'')})}
+buildKeys();
+const IDX=new Map(DATA.map(d=>[d.id,d]));
+function hzH(d){const c=[...d.h];return c.length===d.s.length?c.map((ch,i)=>`<span class="t${tone(d.s[i])}">${esc(ch)}</span>`).join(''):esc(d.h)}
+function pyH(d){return d.s.map((s,i)=>(i&&/^[aeoāáǎàēéěèōóǒò]/.test(s)?"'":'')+`<span class="t${tone(s)}">${esc(s)}</span>`).join('')}
+function exH(d){const z=esc(d.z),w=esc(d.h);return z.includes(w)?z.replace(w,`<mark>${w}</mark>`):z}
+function mH(m){const p=m.split(';').map(x=>x.trim()).filter(Boolean);return `<b>${esc(p[0])}</b>`+p.slice(1).map(x=>`<span> · ${esc(x)}</span>`).join('')}
+const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
+const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+
+/* Mastery: every word has a level 0–20. A right answer raises it by 1, a wrong answer lowers it by 3,
+   so a word needs about 20 good repetitions to mature. Levels 0–6 are red, 7–13 yellow, 14–20 green;
+   inside each colour a light shade means young and a deep shade means mature. Level 20 = mastered. */
+const MAXL=20,UP=1,DOWN=3;
+const lvBand=s=>s>=14?'green':s>=7?'yellow':'red';
+const lvAlpha=s=>{const [lo,hi]=s>=14?[14,20]:s>=7?[7,13]:[0,6];return Math.round(26+74*(s-lo)/(hi-lo))};
+{let a='',b='';for(let s=0;s<=MAXL;s++){a+=`.m${s}{--mc:var(--s-${lvBand(s)})}`;b+=`.m${s}{--mc:color-mix(in srgb,var(--s-${lvBand(s)}) ${lvAlpha(s)}%,var(--surface))}`}
+ const st=document.createElement('style');st.textContent=a+`@supports (color:color-mix(in srgb,red 50%,blue)){${b}}.mbg{background:var(--mc)}`;document.head.appendChild(st)}
+
+let stats=ls.get('mm_stats',null);
+if(!stats||typeof stats!=='object'){stats={};ls.get('hsk16_known',[]).forEach(id=>{if(IDX.has(id))stats[id]=[1,0]})}
+/* entries are [right, wrong, level]; older [right, wrong] entries get a level from their history */
+for(const k in stats){const e=stats[k];if(!Array.isArray(e)){delete stats[k];continue}if(e.length<3)e[2]=Math.max(0,Math.min(MAXL,(e[0]|0)-(e[1]|0)))}
+const saveStats=()=>ls.set('mm_stats',stats);
+const lvl=d=>{const e=stats[d.id];return e&&e[0]+e[1]>0?e[2]:-1};   // -1 = never practised
+const bandOf=d=>{const s=lvl(d);return s<0?'none':lvBand(s)};
+const isKnown=d=>lvl(d)>=MAXL;                                       // mastered
+const mcls=d=>{const s=lvl(d);return s<0?'s-none':`m${s} mbg`};
+function summary(arr){const lv=new Array(MAXL+1).fill(0);let none=0,pts=0;
+  for(const d of arr){const s=lvl(d);if(s<0)none++;else{lv[s]++;pts+=s}}
+  const sum=(a,b)=>lv.slice(a,b).reduce((x,y)=>x+y,0);
+  return {lv,none,red:sum(0,7),yellow:sum(7,14),green:sum(14,MAXL+1),mature:lv[MAXL],n:arr.length,p:pts/(MAXL*arr.length)*100}}
+const pctTxt=p=>(p>0&&p<10?p.toLocaleString(L10.loc,{maximumFractionDigits:1}):Math.floor(p).toLocaleString(L10.loc))+'%';
+function stackH(S){let h='';for(let s=MAXL;s>=0;s--)if(S.lv[s])h+=`<i class="m${s} mbg" style="width:${S.lv[s]/S.n*100}%"></i>`;return h}
+function stTxt(d){const s=lvl(d);if(s<0)return L10.band.none;const e=stats[d.id];return L10.stTxt(s,e[0],e[1])}
+function stH(d){return `<span class="st"><i class="sd ${mcls(d)}"></i>${stTxt(d)}</span>`}
+function record(d,ok){const e=stats[d.id]||[0,0,0];if(ok){e[0]++;e[2]=Math.min(MAXL,e[2]+UP)}else{e[1]++;e[2]=Math.max(0,e[2]-DOWN)}stats[d.id]=e;saveStats();afterChange()}
+const masteredAll=()=>DATA.filter(isKnown).length;
+
+const ui=ls.get('hsk16_ui',{});
+let state={level:LEVELS.includes(ui.level)?ui.level:1,unitBy:Object.assign({1:1,2:1,3:1,4:1,5:1,6:1},ui.unitBy||{}),q:'',shown:60,hide:false,weak:false,screen:'home'};
+const saveUI=()=>ls.set('hsk16_ui',{level:state.level,unitBy:state.unitBy});
+const unit=()=>state.unitBy[state.level];
+const pad=n=>String(n).padStart(2,'0');
+const FOCUS=['list','card','quiz'];
+
+/* theme: one button cycles auto → light → dark */
+const TH_ICON={
+  auto:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17A8.5 8.5 0 0 0 12 3.5z" fill="currentColor"/></svg>',
+  light:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>',
+  dark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
+  black:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/><circle cx="18.5" cy="4.5" r="1.3"/><circle cx="21.2" cy="8.6" r=".85"/></svg>'};
+/* the Liquid Glass layer adds a fourth theme, true black (window.MM_THEMES); without it: auto → light → dark */
+const themeList=()=>window.MM_THEMES||['auto','light','dark'];
+let theme='auto';
+const themeBtn=$('themeBtn');
+const darkMQ=(()=>{try{return matchMedia('(prefers-color-scheme: dark)')}catch(e){return null}})();
+function isDark(){return theme==='dark'||theme==='black'||(theme==='auto'&&!!darkMQ&&darkMQ.matches)}
+/* tell the Android app which colours to give the status and navigation bars (--bar / --bar2 from the CSS) */
+function notifyNative(){try{if(!window.MMAndroid)return;const cs=getComputedStyle(document.documentElement),top=cs.getPropertyValue('--bar').trim(),bot=cs.getPropertyValue('--bar2').trim();
+  if(MMAndroid.setBars&&/^#[0-9a-f]{6}$/i.test(top))MMAndroid.setBars(top,/^#[0-9a-f]{6}$/i.test(bot)?bot:top,isDark());else if(MMAndroid.setTheme)MMAndroid.setTheme(isDark())}catch(e){}}
+function themeLabels(){const n=L10.th[theme];themeBtn.title=L10.theme+': '+n;themeBtn.setAttribute('aria-label',L10.theme+': '+n+'. '+L10.tap)}
+function applyTheme(t,persist){
+  if(!themeList().includes(t))t='auto';
+  theme=t;const r=document.documentElement;
+  if(t!=='auto')r.setAttribute('data-theme',t);else if(persist)r.removeAttribute('data-theme');
+  themeBtn.innerHTML=TH_ICON[t];themeLabels();notifyNative();
+  if(persist){ls.set('hsk16_theme',t);toast(L10.theme+': '+L10.th[t])}
+}
+themeBtn.onclick=()=>{const L=themeList();applyTheme(L[(L.indexOf(theme)+1)%L.length],true)};
+try{darkMQ&&darkMQ.addEventListener('change',notifyNative)}catch(e){}
+{const t=ls.get('hsk16_theme',null);if(t)applyTheme(t,false);else{const cur=document.documentElement.getAttribute('data-theme');applyTheme(cur==='light'||cur==='dark'?cur:'auto',false)}}
+
+/* ---------- screens ---------- */
+const scrHome=$('scr-home'),scrFocus=$('scr-focus'),scrStats=$('scr-stats');
+let prevScreen='home';
+/* design hooks defined by the Liquid Glass layer (glass.js): mmTransition, mmHomeRendered, mmStatsRendered, mmFeedback */
+function go(s){
+  const from=state.screen,run=()=>show(s);
+  if(window.mmTransition&&from!==s)window.mmTransition(run,from,s);else run();
+}
+function show(s){
+  closeMenu(false);closeUMenu(false);closeLang(false);
+  if(s==='stats'){if(state.screen!=='stats')prevScreen=state.screen;stLevel=state.level;stSel=null;stConfirm=false}
+  if(s==='card')startCards();if(s==='quiz')startQuiz();
+  state.screen=s;
+  scrHome.hidden=s!=='home';scrFocus.hidden=!FOCUS.includes(s);scrStats.hidden=s!=='stats';
+  if(FOCUS.includes(s)){scrFocus.dataset.mode=s;$('fTitle').textContent=L10[s];$('listTools').hidden=s!=='list';$('footNote').hidden=s!=='list'}
+  window.scrollTo(0,0);
+  refresh();
+  const h=s==='stats'?$('stTitle'):FOCUS.includes(s)?$('fTitle'):null;
+  try{h&&h.focus({preventScroll:true})}catch(e){}
+}
+function back(){go(state.screen==='stats'?prevScreen:'home')}
+$('backBtn').onclick=back;$('stBack').onclick=back;
+document.querySelector('.tiles').onclick=e=>{const t=e.target.closest('[data-go]');if(t)go(t.dataset.go)};
+const hero=$('hero');
+hero.onclick=()=>go('stats');
+hero.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go('stats')}};
+function refresh(){
+  renderChips();
+  if(state.screen==='home')renderHome();
+  else if(state.screen==='list')renderList();
+  else if(state.screen==='card')renderCard();
+  else if(state.screen==='quiz')renderQuiz();
+  else renderStats();
+}
+function afterChange(){
+  renderChips();
+  if(!lvMenu.hidden)renderMenu();if(!uMenu.hidden)renderUnitMenu();
+  if(state.screen==='stats')renderStats();else if(state.screen==='home')renderHome();
+}
+
+/* ---------- home ---------- */
+const RING_C=2*Math.PI*52;
+function renderHome(){
+  const L=state.level,S=summary(BY[L]),pc=pctTxt(S.p);
+  $('lvPills').innerHTML=LEVELS.map(l=>`<button class="lvpill" data-l="${l}" aria-pressed="${l===L}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`).join('');
+  /* one arc per level, deepest green first, so the ring fades from mature green to young red */
+  let off=0,arcs='';
+  for(let s=MAXL;s>=0;s--){if(!S.lv[s])continue;const len=S.lv[s]/S.n*RING_C;
+    arcs+=`<circle class="sg m${s}" cx="60" cy="60" r="52" style="stroke:var(--mc)" stroke-dasharray="${len.toFixed(2)} ${RING_C.toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}"/>`;off+=len}
+  $('ringArcs').innerHTML=arcs;
+  $('heroPct').textContent=pc;$('heroLbl').textContent=L10.memoWord;
+  $('heroLv').textContent=`HSK ${L} · ${L10.words(fmt(S.n))}`;
+  $('heroKeys').innerHTML=['green','yellow','red','none'].map(b=>`<div class="hkey"><i class="sd s-${b}"></i>${L10.band[b]}<b>${fmt(S[b])}</b></div>`).join('');
+  $('heroCnt').innerHTML=L10.lvCount(fmt(S.mature),fmt(S.n));
+  $('heroGo').textContent=L10.statsShort+' ›';
+  hero.setAttribute('aria-label',`${L10.stTitle} · HSK ${L} · ${pc}`);
+  $('allNote').innerHTML=L10.allLv(fmt(masteredAll()),fmt(DATA.length));
+  if(window.mmHomeRendered)window.mmHomeRendered(S);
+}
+$('lvPills').onclick=e=>{const p=e.target.closest('.lvpill');if(p&&+p.dataset.l!==state.level)setLevel(+p.dataset.l)};
+
+/* ---------- level + unit pickers (focused screens) ---------- */
+const lvbtn=$('lvbtn'),lvMenu=$('lvMenu'),lvList=$('lvList');
+const ubtn=$('ubtn'),uMenu=$('uMenu'),uGrid=$('uGrid');
+function renderChips(){
+  const L=state.level,u=unit();
+  $('lvName').textContent='HSK '+L;lvbtn.setAttribute('aria-label',L10.pickLv+': HSK '+L);
+  $('uName').textContent=u?L10.unit+' '+pad(u):L10.allShort;ubtn.setAttribute('aria-label',L10.pickU+': '+(u?L10.unit+' '+u:L10.allU));
+  $('allHead').innerHTML=L10.allLv(fmt(masteredAll()),fmt(DATA.length));
+}
+function renderMenu(){
+  lvList.innerHTML=LEVELS.map(l=>{const S=summary(BY[l]),tot=S.n;
+    return `<button class="lvrow" role="option" data-l="${l}" aria-selected="${state.level===l}" style="--lc:var(--l${l})">
+      <span class="l"><i class="sd" style="width:10px;height:10px;background:var(--l${l})"></i><span class="nm"><b>HSK ${l}</b><small>${L10.words(fmt(tot))}</small></span></span>
+      <span class="r"><span class="mbar"><span class="stack">${stackH(S)}</span></span><span class="pct">${pctTxt(S.p)}</span></span></button>`}).join('');
+}
+function openMenu(){closeUMenu(false);renderMenu();lvMenu.hidden=false;lvbtn.setAttribute('aria-expanded','true');(lvList.querySelector('[aria-selected="true"]')||lvList.firstElementChild).focus()}
+function closeMenu(focusBtn){lvMenu.hidden=true;lvbtn.setAttribute('aria-expanded','false');if(focusBtn)lvbtn.focus()}
+lvbtn.onclick=()=>lvMenu.hidden?openMenu():closeMenu(false);
+lvList.onclick=e=>{const r=e.target.closest('.lvrow');if(!r)return;closeMenu(true);if(+r.dataset.l!==state.level)setLevel(+r.dataset.l)};
+$('openStats').onclick=()=>go('stats');
+lvMenu.addEventListener('keydown',e=>{
+  const rows=[...lvList.querySelectorAll('.lvrow'),$('openStats')],i=rows.indexOf(document.activeElement);
+  if(e.key==='ArrowDown'){e.preventDefault();rows[(i+1)%rows.length].focus()}
+  else if(e.key==='ArrowUp'){e.preventDefault();rows[(i-1+rows.length)%rows.length].focus()}
+  else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeMenu(true)}
+});
+function unitItems(u){const L=state.level;return u?BY[L].filter(d=>d.u===u):BY[L]}
+function renderUnitMenu(){
+  const L=state.level,u=unit(),Sa=summary(BY[L]);
+  let h=`<button class="ucell uall" data-u="0" aria-current="${u===0}"><b>${L10.allU}</b><small>${L10.words(fmt(Sa.n))} · ${pctTxt(Sa.p)} · ${L10.matureOf(fmt(Sa.mature),fmt(Sa.n))}</small><span class="mbar"><span class="stack">${stackH(Sa)}</span></span></button>`;
+  for(let k=1;k<=UNITS[L];k++){const S=summary(unitItems(k));
+    h+=`<button class="ucell${S.mature===S.n?' done':''}" data-u="${k}" aria-current="${u===k}" aria-label="${L10.unit} ${k}"><b>${L10.uS}${pad(k)}</b><small>${pctTxt(S.p)}</small><span class="mbar"><span class="stack">${stackH(S)}</span></span></button>`}
+  uGrid.innerHTML=h;
+}
+function openUMenu(){closeMenu(false);renderUnitMenu();uMenu.hidden=false;ubtn.setAttribute('aria-expanded','true');const cur=uGrid.querySelector('[aria-current="true"]');cur?.scrollIntoView({block:'nearest'});cur?.focus()}
+function closeUMenu(focusBtn){uMenu.hidden=true;ubtn.setAttribute('aria-expanded','false');if(focusBtn)ubtn.focus()}
+ubtn.onclick=()=>uMenu.hidden?openUMenu():closeUMenu(false);
+uGrid.onclick=e=>{const b=e.target.closest('.ucell');if(!b)return;closeUMenu(true);setUnit(+b.dataset.u)};
+uMenu.addEventListener('keydown',e=>{
+  const cells=[...uGrid.querySelectorAll('.ucell')],i=cells.indexOf(document.activeElement);
+  if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();cells[Math.min(i+1,cells.length-1)].focus()}
+  else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();cells[Math.max(i-1,0)].focus()}
+  else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeUMenu(true)}
+});
+document.addEventListener('click',e=>{
+  if(!lvMenu.hidden&&!e.target.closest('#lvbtn,#lvMenu'))closeMenu(false);
+  if(!uMenu.hidden&&!e.target.closest('#ubtn,#uMenu'))closeUMenu(false);
+  if(!langMenu.hidden&&!e.target.closest('#langwrap'))closeLang(false)});
+function setLevel(l){state.level=l;state.shown=60;state.q='';$('q').value='';saveUI();
+  document.body.dataset.level=l;$('seal').textContent=NUM[l-1];startCards();startQuiz();refresh()}
+function setUnit(u){state.unitBy[state.level]=u;state.shown=60;saveUI();startCards();startQuiz();refresh()}
+function pool(){const L=state.level;return unit()?BY[L].filter(d=>d.u===unit()):BY[L]}
+
+/* ---------- language menu ---------- */
+const langBtn=$('langBtn'),langMenu=$('langMenu'),langList=$('langList');
+const CHECK='<svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const DEVICE='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>';
+function renderLangMenu(){
+  const sl=sysLang();
+  langList.innerHTML=`<button class="lgrow" role="option" data-lang="auto" aria-selected="${langPref==='auto'}"><span class="lgcode">${DEVICE}</span><span class="nm"><b>${esc(L10.auto)}</b><small lang="${sl}">${esc(I18N[sl].name)}</small></span>${CHECK}</button><div class="msep"></div>`+
+  LANGS.map(l=>{const own=I18N[l].name,loc=L10.names[l];
+    return `<button class="lgrow" role="option" data-lang="${l}" lang="${l}" aria-selected="${langPref===l}"><span class="lgcode">${l.toUpperCase()}</span><span class="nm"><b>${esc(own)}</b>${loc!==own?`<small lang="${lang}">${esc(loc)}</small>`:''}</span>${CHECK}</button>`}).join('');
+}
+function openLang(){renderLangMenu();langMenu.hidden=false;langBtn.setAttribute('aria-expanded','true');(langList.querySelector('[aria-selected="true"]')||langList.firstElementChild).focus()}
+function closeLang(focusBtn){langMenu.hidden=true;langBtn.setAttribute('aria-expanded','false');if(focusBtn)langBtn.focus()}
+langBtn.onclick=()=>langMenu.hidden?openLang():closeLang(false);
+langList.onclick=e=>{const r=e.target.closest('.lgrow');if(!r)return;closeLang(true);if(r.dataset.lang!==langPref)setLang(r.dataset.lang)};
+langMenu.addEventListener('keydown',e=>{
+  const rows=[...langList.querySelectorAll('.lgrow')],i=rows.indexOf(document.activeElement);
+  if(e.key==='ArrowDown'){e.preventDefault();rows[(i+1)%rows.length].focus()}
+  else if(e.key==='ArrowUp'){e.preventDefault();rows[(i-1+rows.length)%rows.length].focus()}
+  else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeLang(true)}
+});
+function applyStatic(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=L10[el.dataset.i18n]);
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',L10[el.dataset.i18nAria]));
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>el.placeholder=L10[el.dataset.i18nPh]);
+  $('langCode').textContent=lang.toUpperCase();
+  langBtn.title=L10.langHead+': '+L10.name;langBtn.setAttribute('aria-label',L10.langHead+': '+L10.name);
+  $('legend').innerHTML=[['妈','mā',1],['麻','má',2],['马','mǎ',3],['骂','mà',4],['吗','ma',5]].map(([h,p,n])=>`<span><b class="t${n}">${h}</b> ${p} ${n<5?L10.tone(n):L10.neutral}</span>`).join('');
+  $('footP').innerHTML=esc(L10.foot).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
+  if(FOCUS.includes(state.screen))$('fTitle').textContent=L10[state.screen];
+  themeLabels();
+}
+function setLang(pref,silent){
+  langPref=pref;ls.set('mm_lang',pref);
+  const l=pref==='auto'?sysLang():pref,changed=l!==lang;
+  lang=l;L10=I18N[l];
+  if(changed){buildKeys();applyStatic();
+    if(qz.cur&&!qz.answered&&new Set(qz.opts.map(M1)).size<qz.opts.length)newQ();
+    refresh()}
+  if(!silent)toast(pref==='auto'?L10.auto+' · '+L10.name:L10.name);
+}
+window.addEventListener('languagechange',()=>{if(langPref==='auto'&&sysLang()!==lang)setLang('auto',true)});
+
+/* ---------- list ---------- */
+const view=$('view');
+function itemH(d,q){return `<article class="item" tabindex="0">
+      <div class="ihead"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span></div>
+      <span class="nos">${q?chip(d.l):''}<i class="sd ${mcls(d)}" title="${esc(stTxt(d))}"></i><span class="no">${String(d.n).padStart(4,'0')}</span></span></div>
+      <div class="mean">${mH(M(d))}</div>
+      <div class="ex"><div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div></div>
+    </article>`}
+const LATIN_ONLY=/^[\u0000-ɏḀ-ỿ\s]*$/;
+function renderList(){
+  const q=state.q.trim().toLowerCase(),qp=LATIN_ONLY.test(state.q)?plain(state.q):'';
+  let p=q?DATA.filter(d=>d.key.includes(q)||(qp&&d.key.includes(qp))):pool();
+  if(state.weak)p=p.filter(d=>!isKnown(d));
+  const total=p.length,list=p.slice(0,state.shown),L=state.level,u=unit();
+  const label=q?L10.results(fmt(total),esc(state.q)):(u?`No. ${(u-1)*50+1}–${Math.min(u*50,BY[L].length)} · `:'')+L10.words(fmt(total));
+  view.innerHTML=`<p class="meta">${label}</p>`+(total?`<div class="list ${state.hide?'hidemean':''}">${list.map(d=>itemH(d,q)).join('')}</div>`+(total>state.shown?`<button class="more" id="more">${L10.more(Math.min(60,total-state.shown))}</button>`:''):`<div class="empty">${L10.empty}</div>`);
+}
+view.addEventListener('click',e=>{if(state.screen==='list'&&e.target.id==='more'){state.shown+=60;renderList()}});
+$('q').oninput=e=>{state.q=e.target.value;state.shown=60;renderList()};
+const hideBtn=$('hideMean'),weakBtn=$('onlyNew');
+hideBtn.onclick=()=>{state.hide=!state.hide;hideBtn.setAttribute('aria-pressed',state.hide);renderList()};
+weakBtn.onclick=()=>{state.weak=!state.weak;weakBtn.setAttribute('aria-pressed',state.weak);state.shown=60;renderList()};
+
+/* ---------- flashcards ---------- */
+let deck=[],di=0,flipped=false;
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function startCards(){const p=pool();const weak=p.filter(d=>!isKnown(d));deck=shuffle(weak.length?weak:p);di=0;flipped=false}
+function renderCard(){
+  if(!deck.length)startCards();
+  if(di>=deck.length){view.innerHTML=`<div class="qcard"><div class="big t3">好!</div><p>${L10.roundDone}</p><button class="next" id="again">${L10.newRound}</button></div>`;return}
+  const d=deck[di];
+  view.innerHTML=`<div class="fcmeta"><span>${L10.cardN(di+1,deck.length)}</span><span class="mbar"><span class="stack"><i style="width:${di/deck.length*100}%;background:var(--acc)"></i></span></span></div>
+  <div class="flip ${flipped?'on':''}" id="flip" role="button" tabindex="0" aria-label="${L10.flip}">
+   <div class="inner">
+    <div class="face">${stH(d)}<div class="big">${esc(d.h)}</div><div class="hint">${L10.flipHint}</div></div>
+    <div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span></div>
+      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div></div></div>
+   </div></div>
+  <div class="fcbtns"><button class="no-btn" id="fcNo">${L10.notYet}</button><button class="yes-btn" id="fcYes">${L10.got}</button></div>
+  <div class="fcnav"><button class="ghost" id="fcPrev">${L10.prev}</button><button class="ghost" id="fcShuf">${L10.reshuffle}</button></div>`;
+}
+function fcAnswer(ok){const d=deck[di];if(!d)return;window.mmFeedback&&mmFeedback(ok);record(d,ok);if(!ok)deck.push(d);di++;flipped=false;renderCard()}
+view.addEventListener('click',e=>{
+  if(state.screen!=='card')return;
+  const id=e.target.closest('[id]')?.id;
+  if(id==='flip'){flipped=!flipped;$('flip').classList.toggle('on',flipped)}
+  else if(id==='fcYes')fcAnswer(true);else if(id==='fcNo')fcAnswer(false);
+  else if(id==='fcPrev'&&di>0){di--;flipped=false;renderCard()}
+  else if(id==='fcShuf'||id==='again'){startCards();renderCard()}
+});
+
+/* ---------- quiz ---------- */
+let qz={type:'meaning',cur:null,opts:[],answered:false,pick:-1,right:0,total:0,streak:0};
+function startQuiz(){qz.right=0;qz.total=0;qz.streak=0;newQ()}
+function newQ(){const p=pool();const weak=p.filter(d=>!isKnown(d));const src=weak.length&&Math.random()<.7?weak:p;const d=src[Math.random()*src.length|0];
+  const lvl=BY[d.l],seen=new Set([M1(d)]),picks=[];
+  for(const x of shuffle(lvl.filter(x=>x.id!==d.id&&(unit()?Math.abs(x.u-d.u)<=2:true)))){const k=M1(x);if(seen.has(k))continue;seen.add(k);picks.push(x);if(picks.length===3)break}
+  qz.cur=d;qz.opts=shuffle([d,...picks]);qz.answered=false;qz.pick=-1}
+function scoreH(){return `<span>${L10.right} <b>${qz.right}</b>/${qz.total}</span><span>${L10.streak} <b>${qz.streak}</b></span>`}
+/* The whole question, including the answered state, is drawn from qz, so any re-render
+   (language switch, level refresh) keeps the feedback and the "next" button. */
+function renderQuiz(){
+  if(!qz.cur||qz.cur.l!==state.level)newQ();const d=qz.cur,T=qz.type,mp=M(d).split(';'),ans=qz.answered,ok=ans&&qz.opts[qz.pick]?.id===d.id;
+  const prompt=T==='meaning'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
+    :T==='hanzi'?`<div class="q">${L10.qHz}</div><div style="font-size:22px;font-weight:800">${esc(mp[0])}</div><div class="id">${esc(mp.slice(1).join(';'))}</div>`
+    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`;
+  const lab=o=>T==='meaning'?esc(M1(o)):`<span style="font-family:var(--f-hz);font-weight:900;font-size:20px">${esc(o.h)}</span>`;
+  const cls=(o,i)=>!ans?'':o.id===d.id?' class="ok"':i===qz.pick?' class="ng"':'';
+  const fb=!ans?'':`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
+    <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span></div><div class="mean">${mH(M(d))}</div>
+    <div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
+  const QT=[['meaning',L10.tMean,L10.dMean,'汉→a'],['hanzi',L10.tHz,L10.dHz,'a→汉'],['cloze',L10.tCloze,L10.dCloze,'汉＿']],cur=QT.find(q=>q[0]===T);
+  view.innerHTML=`<div class="qhead"><div class="qsel" id="qsel">
+      <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
+      <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q=>`<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0]===T}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
+     </div><div class="score">${scoreH()}</div></div>
+   <div class="qcard">${prompt}
+     <div class="opts">${qz.opts.map((o,i)=>`<button data-i="${i}"${cls(o,i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div>
+     <div class="feedback" id="fb">${fb}</div></div>`;
+}
+const qMenuOpen=()=>{const m=$('qTypeMenu');return !!m&&!m.hidden};
+function qMenu(open){const m=$('qTypeMenu'),b=$('qTypeBtn');if(!m)return;m.hidden=!open;b.setAttribute('aria-expanded',open);if(open)(m.querySelector('[aria-selected="true"]')||m.firstElementChild).focus()}
+view.addEventListener('keydown',e=>{if(!qMenuOpen())return;const rows=[...$('qTypeMenu').querySelectorAll('.qtrow')],i=rows.indexOf(document.activeElement);
+  if(e.key==='ArrowDown'){e.preventDefault();rows[(i+1)%rows.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();rows[(i-1+rows.length)%rows.length].focus()}
+  else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();qMenu(false);$('qTypeBtn').focus()}});
+document.addEventListener('click',e=>{if(qMenuOpen()&&!e.target.closest('#qsel'))qMenu(false)});
+view.addEventListener('click',e=>{
+  if(state.screen!=='quiz')return;
+  if(e.target.closest('#qTypeBtn')){qMenu(!qMenuOpen());return}
+  const qt=e.target.closest('.qtrow');if(qt){if(qt.dataset.qt!==qz.type){qz.type=qt.dataset.qt;startQuiz()}renderQuiz();$('qTypeBtn')?.focus();return}
+  if(e.target.closest('#qNext')){newQ();renderQuiz();return}
+  const b=e.target.closest('.opts button');if(!b||qz.answered)return;
+  const d=qz.cur;qz.answered=true;qz.pick=+b.dataset.i;qz.total++;const ok=qz.opts[qz.pick].id===d.id;
+  if(ok){qz.right++;qz.streak++}else qz.streak=0;
+  window.mmFeedback&&mmFeedback(ok);record(d,ok);renderQuiz();
+});
+
+/* ---------- stats screen ---------- */
+let stLevel=1,stSel=null,stConfirm=false;
+function renderStats(){
+  const arr=BY[stLevel],S=summary(arr);
+  $('stLevels').innerHTML=LEVELS.map(l=>`<button class="lvpill" data-sl="${l}" aria-pressed="${l===stLevel}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`).join('');
+  $('stSum').innerHTML=`<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n-S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
+  $('stStack').innerHTML=stackH(S);
+  $('stKeys').innerHTML=[['red','0–6'],['yellow','7–13'],['green','14–20'],['none','']].map(([b,r])=>`<div class="key"><b><i class="sd s-${b}"></i>${fmt(S[b])}</b>${L10.band[b]}${r?' · '+L10.lvlWord+' '+r:''}</div>`).join('');
+  $('stScale').innerHTML=`<div class="scale">${Array.from({length:MAXL},(_,i)=>`<i class="m${i+1} mbg" title="${i+1}"></i>`).join('')}</div>
+    <div class="scalelbl"><span style="grid-column:1">1</span><span style="grid-column:7">7</span><span style="grid-column:14">14</span><span class="end">20 · ${L10.matureWord}</span></div>`;
+  let g='';for(let u=1;u<=UNITS[stLevel];u++){const it=arr.filter(d=>d.u===u),Su=summary(it);
+    g+=`<div class="ublock"><div class="ulabel">${L10.unit.toUpperCase()} ${pad(u)} <span>· ${pctTxt(Su.p)} · ${L10.matureOf(Su.mature,Su.n)}</span></div><div class="dots">${it.map(d=>`<button class="${mcls(d)}" data-sid="${esc(d.id)}" aria-current="${d.id===stSel}" aria-label="${esc(d.h)} · ${esc(stTxt(d))}" title="${esc(d.h)}"></button>`).join('')}</div></div>`}
+  $('stGrid').innerHTML=g;
+  renderDetail();renderFoot();
+  if(window.mmStatsRendered)window.mmStatsRendered();
+}
+function renderDetail(){
+  const el=$('stDetail'),d=stSel&&IDX.get(stSel);
+  if(!d||d.l!==stLevel){el.innerHTML=`<span class="hint">${L10.dotHint}</span>`;return}
+  el.innerHTML=`<div class="w"><span class="no">${String(d.n).padStart(4,'0')}</span><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span><span style="font-size:13px">${esc(M1(d))}</span><span style="flex-basis:100%">${stH(d)}</span></div><span class="ans"><button class="a-no" data-sa="0">${L10.aNo}</button><button class="a-yes" data-sa="1">${L10.aYes}</button></span>`;
+}
+function renderFoot(){
+  $('stFoot').innerHTML=stConfirm?`<div class="confirm">${L10.rsQ(stLevel)}<button class="ghost" id="rsNo">${L10.cancel}</button><button class="danger solid" id="rsYes">${L10.rsYes}</button></div>`
+    :`<p>${L10.rsNote}</p><button class="danger" id="rsAsk">${L10.rsAsk(stLevel)}</button>`;
+}
+scrStats.addEventListener('click',e=>{
+  const lb=e.target.closest('[data-sl]');if(lb){stLevel=+lb.dataset.sl;stSel=null;stConfirm=false;renderStats();return}
+  const dot=e.target.closest('[data-sid]');if(dot){stSel=dot.dataset.sid;scrStats.querySelectorAll('.dots [aria-current="true"]').forEach(x=>x.setAttribute('aria-current','false'));dot.setAttribute('aria-current','true');renderDetail();return}
+  const sa=e.target.closest('[data-sa]');if(sa){record(IDX.get(stSel),sa.dataset.sa==='1');return}
+  if(e.target.id==='rsAsk'){stConfirm=true;renderFoot();$('rsNo').focus();return}
+  if(e.target.id==='rsNo'){stConfirm=false;renderFoot();return}
+  if(e.target.id==='rsYes'){BY[stLevel].forEach(d=>delete stats[d.id]);saveStats();stConfirm=false;stSel=null;
+    if(state.level===stLevel){startCards();startQuiz()}afterChange();toast(L10.rsDone(stLevel))}
+});
+/* ---------- tone colours & info sheet ---------- */
+const infoSheet=$('infoSheet');
+const TONE_PATH=['M4 6H36','M4 17L36 5','M4 9Q16 24 23 18T36 5','M4 4L36 20',''];
+function renderInfo(){
+  $('infoTones').innerHTML=L10.tones.map(([n,dsc,ex],i)=>{const t=i+1,[h,p]=[['妈','mā'],['麻','má'],['马','mǎ'],['骂','mà'],['吗','ma']][i];
+    return `<div class="tone"><span class="tz t${t}">${h}</span><span class="tp t${t}">${p}</span><svg class="tc t${t}" viewBox="0 0 40 24" aria-hidden="true">${TONE_PATH[i]?`<path d="${TONE_PATH[i]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`:'<circle cx="20" cy="14" r="3.2" fill="currentColor"/>'}</svg><span class="tn"><b>${n}</b><small>${dsc}</small></span><span class="tm">${esc(ex)}</span></div>`}).join('');
+  $('infoCred').innerHTML=esc(L10.credit).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
+}
+let infoOpener=null;
+function openInfo(){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';infoSheet.querySelector('.xbtn').focus()}
+function closeInfo(){infoSheet.hidden=true;document.body.style.overflow='';infoOpener?.focus?.()}
+$('toneInfo').onclick=openInfo;
+infoSheet.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeInfo()});
+infoSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeInfo()}});
+let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2000)}
+
+/* ---------- keyboard + Android back ---------- */
+/* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
+window.mmBack=function(){
+  if(window.mmBusy&&mmBusy())return true;   /* a screen animation is still running */
+  if(!infoSheet.hidden){closeInfo();return true}
+  if(qMenuOpen()){qMenu(false);return true}
+  if(!langMenu.hidden){closeLang(false);return true}
+  if(!lvMenu.hidden){closeMenu(false);return true}
+  if(!uMenu.hidden){closeUMenu(false);return true}
+  if(state.screen!=='home'){back();return true}
+  return false};
+document.addEventListener('keydown',e=>{
+  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||qMenuOpen())return;
+  if(e.key==='Escape'&&state.screen!=='home'&&!/^(INPUT|SELECT)$/.test(e.target.tagName)){back();return}
+  if(/^(INPUT|SELECT)$/.test(e.target.tagName))return;
+  if(state.screen==='card'){if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();flipped=!flipped;$('flip')?.classList.toggle('on',flipped)}
+    if(e.key==='ArrowRight')fcAnswer(true);if(e.key==='ArrowLeft')fcAnswer(false)}
+  if(state.screen==='quiz'){if(/^[1-4]$/.test(e.key))document.querySelectorAll('.opts button')[+e.key-1]?.click();if(e.key==='Enter'&&e.target.tagName!=='BUTTON'&&$('qNext'))$('qNext').click()}
+});
+
+/* ---------- start on Home ---------- */
+document.body.dataset.level=state.level;$('seal').textContent=NUM[state.level-1];
+applyStatic();saveStats();startCards();startQuiz();go('home');
+</script>

@@ -3,6 +3,8 @@
 
     <!-- Only used to load web fonts when online; the app works fully offline. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Light haptic feedback on taps and quiz answers -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
