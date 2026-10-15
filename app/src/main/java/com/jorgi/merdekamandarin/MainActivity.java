@@ -106,19 +106,37 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    /** Lets the page match the status and navigation bars to its light or dark theme. */
+    /** Lets the page match the status and navigation bars to its theme. */
     private class Bridge {
+        /** Older pages: light or dark only. */
         @JavascriptInterface
         public void setTheme(final boolean dark) {
-            runOnUiThread(() -> applyBars(dark));
+            runOnUiThread(() -> applyBars(fallback(dark), fallback(dark), dark));
+        }
+
+        /** Exact colours (#RRGGBB) for the status bar and the navigation bar, e.g. #000000 for true black. */
+        @JavascriptInterface
+        public void setBars(final String status, final String nav, final boolean dark) {
+            runOnUiThread(() -> applyBars(parse(status, dark), parse(nav, dark), dark));
         }
     }
 
-    private void applyBars(boolean dark) {
+    private static int fallback(boolean dark) {
+        return Color.parseColor(dark ? "#0F1218" : "#F4F5F7");
+    }
+
+    private static int parse(String hex, boolean dark) {
+        try {
+            return Color.parseColor(hex.trim());
+        } catch (RuntimeException e) {
+            return fallback(dark);
+        }
+    }
+
+    private void applyBars(int statusColor, int navColor, boolean dark) {
         Window w = getWindow();
-        int bg = dark ? Color.parseColor("#0F1218") : Color.parseColor("#F4F5F7");
-        w.setStatusBarColor(bg);
-        w.setNavigationBarColor(bg);
+        w.setStatusBarColor(statusColor);
+        w.setNavigationBarColor(navColor);
         View decor = w.getDecorView();
         int flags = decor.getSystemUiVisibility();
         if (dark) {
