@@ -3,9 +3,9 @@ plugins {
 }
 
 // Each GitHub Actions run gets a higher versionCode, so a new APK installs over the old one (progress is kept).
-// The visible version starts again at 1.0 from run 12 (runs 1-11 were the earlier two-version builds).
+// The visible version starts again at 1.0 from run 13 (earlier runs built the old two-version app).
 def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1').toInteger()
-def FIRST_RUN = 12
+def FIRST_RUN = 13
 
 android {
     namespace 'com.jorgi.merdekamandarin'

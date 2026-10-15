@@ -23,7 +23,10 @@ jobs:
 
       # Version shown to people: 1.0, 1.1, ... (matches versionName in app/build.gradle)
       - name: Version
-        run: echo "VER=1.$(( GITHUB_RUN_NUMBER > 12 ? GITHUB_RUN_NUMBER - 12 : 0 ))" >> "$GITHUB_ENV"
+        run: |
+          n=$(( GITHUB_RUN_NUMBER - 13 ))
+          if [ "$n" -lt 0 ]; then n=0; fi
+          echo "VER=1.$n" >> "$GITHUB_ENV"
 
       # The app page is built from web/src + web/data, so the APK always matches the source.
       - name: Build app page
