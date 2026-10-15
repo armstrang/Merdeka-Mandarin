@@ -297,9 +297,7 @@ html[lang="th"] .id{font-style:normal}
 
 /* stats screen */
 .stbody{display:flex;flex-direction:column;gap:12px}
-.stlv{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-.stlv button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 0;font-size:13px;font-weight:800;white-space:nowrap}
-.stlv button[aria-pressed="true"]{border-color:var(--lc);color:var(--lc);background:color-mix(in srgb,var(--lc) 12%,var(--surface))}
+.stbody .lvpills{margin-bottom:0}
 .stsum{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .stsum .big{font-size:28px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .stsum .big small{font-size:14px;font-weight:700;color:var(--soft);margin-left:4px}
@@ -333,7 +331,7 @@ html[lang="th"] .id{font-style:normal}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 14px;border-radius:11px;font-size:13px;font-weight:700;z-index:60;white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
 
 @media (max-width:719px){.keys{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.stlv button{font-size:11.5px}.hz{font-size:24px}.flip{height:380px}}
+@media (max-width:520px){.hz{font-size:24px}.flip{height:380px}}
 @media (max-width:400px){
   header.top{gap:8px}.langbtn svg{display:none}.langbtn{padding:0 11px}
   .hero{padding:16px 14px;gap:12px 14px}.ring{width:148px;height:148px}.rc b{font-size:34px}
@@ -354,13 +352,12 @@ html[lang="th"] .id{font-style:normal}
   --bg-top:#f5f6f8; --bg-bot:#e1e4e9; --bar:#f5f6f8; --bar2:#e1e4e9; --glow-o:55%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.62),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.10) 55%,rgba(255,255,255,.18));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.5),rgba(255,255,255,0) 60%),rgba(255,255,255,.46);
-  --g-head:rgba(246,247,249,.60);
+  --g-head:rgba(246,247,249,.60); --g-bar:rgba(255,255,255,.58);
   --g-edge:rgba(255,255,255,.45);
   --g-rim:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.6) 15%,rgba(255,255,255,.06) 40%,rgba(255,255,255,.04) 62%,rgba(255,255,255,.55) 86%,#fff 100%);
   --g-inset:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -16px 26px -20px rgba(255,255,255,.85),inset 0 0 0 .5px rgba(255,255,255,.35);
   --g-drop:0 20px 40px -24px rgba(25,35,60,.45),0 3px 8px -4px rgba(25,35,60,.14);
   --g-blur:blur(16px) saturate(210%) brightness(1.03);
-  --g-spec:rgba(255,255,255,.8);
   --lens:radial-gradient(120% 80% at 20% -20%,#fff,rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.45));
   --spring:cubic-bezier(.34,1.56,.64,1); --ease:cubic-bezier(.22,1,.36,1);
 }
@@ -370,13 +367,12 @@ html[lang="th"] .id{font-style:normal}
   --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
-  --g-head:rgba(40,43,50,.62);
+  --g-head:rgba(40,43,50,.62); --g-bar:rgba(52,55,63,.56);
   --g-edge:rgba(255,255,255,.07);
   --g-rim:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.25) 15%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.22) 86%,rgba(255,255,255,.62) 100%);
   --g-inset:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -16px 26px -20px rgba(255,255,255,.14);
   --g-drop:0 22px 40px -22px rgba(0,0,0,.85);
   --g-blur:blur(16px) saturate(180%);
-  --g-spec:rgba(255,255,255,.16);
   --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}}
 :root[data-theme="dark"]{
   --bg:#23262c; --surface:#2a2d34; --sunk:#353840; --line:#3a3e46; --s-none:#454952;
@@ -384,13 +380,12 @@ html[lang="th"] .id{font-style:normal}
   --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
-  --g-head:rgba(40,43,50,.62);
+  --g-head:rgba(40,43,50,.62); --g-bar:rgba(52,55,63,.56);
   --g-edge:rgba(255,255,255,.07);
   --g-rim:linear-gradient(135deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.25) 15%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.22) 86%,rgba(255,255,255,.62) 100%);
   --g-inset:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -16px 26px -20px rgba(255,255,255,.14);
   --g-drop:0 22px 40px -22px rgba(0,0,0,.85);
   --g-blur:blur(16px) saturate(180%);
-  --g-spec:rgba(255,255,255,.16);
   --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}
 /* True black: pure #000 for OLED screens; only the level glow and the glass edges catch the light */
 :root[data-theme="black"]{
@@ -403,13 +398,12 @@ html[lang="th"] .id{font-style:normal}
   --bg-top:#000000; --bg-bot:#000000; --bar:#000000; --bar2:#000000; --glow-o:34%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.14),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02) 55%,rgba(255,255,255,.04));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.08),rgba(255,255,255,0) 60%),rgba(255,255,255,.04);
-  --g-head:rgba(0,0,0,.6);
+  --g-head:rgba(0,0,0,.6); --g-bar:rgba(30,30,33,.62);
   --g-edge:rgba(255,255,255,.06);
   --g-rim:linear-gradient(135deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.2) 15%,rgba(255,255,255,.03) 40%,rgba(255,255,255,.03) 62%,rgba(255,255,255,.18) 86%,rgba(255,255,255,.55) 100%);
   --g-inset:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -16px 26px -20px rgba(255,255,255,.10);
   --g-drop:0 20px 36px -22px rgba(0,0,0,.95);
   --g-blur:blur(16px) saturate(180%);
-  --g-spec:rgba(255,255,255,.14);
   --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.3),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.05))}
 
 /* ---- background: a static glow in the level colour from the top-left corner (fades to the new colour on level change) ---- */
@@ -422,52 +416,33 @@ body{background:var(--bg)}
 html.app .liquid-bg::after{content:"";position:absolute;left:0;right:0;top:0;height:18px;background:linear-gradient(var(--bar),transparent)}
 
 /* ---- glass ---- */
-.hero,.tile,.lvseg,.frow,.backbtn,.pchip,.langbtn,.iconbtn,.qcard,.tchip,.ghost,.no-btn,.more,.qtbtn,.toneinfo,.xbtn,.search input,.stlv button,.danger,.menu,.stdetail,.toast,.opts button{
+.hero,.tile,.lvseg,.frow,.langbtn,.iconbtn,.qcard,.tchip,.ghost,.no-btn,.more,.qtbtn,.toneinfo,.xbtn,.search input,.danger,.menu,.stdetail,.toast,.opts button{
   background:var(--g-fill);border:1px solid var(--g-edge);box-shadow:var(--g-inset),var(--g-drop)}
 .item,.face,.key,.ucell{background:var(--g-solid);border:1px solid var(--g-edge);box-shadow:var(--g-inset),var(--g-drop)}
-/* real frosting where it shows: the home panels (they sit still) and the floating layers */
-.hero,.tile,.lvseg,.langbtn,.iconbtn,.qcard{-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur)}
-.frow,.menu,.stdetail,.toast{background:var(--g-head);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur)}
+/* real frosting only on layers that float over scrolling content (the page background itself is a smooth glow,
+   so blurring it would cost frames and show nothing) */
+.menu,.stdetail,.toast{background:var(--g-head);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur)}
 /* thin bright rim, as on real glass */
-.hero,.tile,.lvseg,.backbtn,.pchip,.langbtn,.iconbtn,.qcard,.no-btn,.yes-btn,.next,.opts button,.qtbtn,.toneinfo{position:relative}
-.hero::after,.tile::after,.lvseg::after,.frow::after,.qtbtn::after,.toneinfo::after,.isheet::after,.morph::after,.backbtn::after,.pchip::after,.langbtn::after,.iconbtn::after,.qcard::after,.face::after,.lens::after,.no-btn::after,.yes-btn::after,.next::after,.menu::after{
+.hero,.tile,.lvseg,.langbtn,.iconbtn,.qcard,.no-btn,.yes-btn,.next,.opts button,.qtbtn,.toneinfo{position:relative}
+.hero::after,.tile::after,.lvseg::after,.frow::after,.qtbtn::after,.toneinfo::after,.isheet::after,.langbtn::after,.iconbtn::after,.qcard::after,.face::after,.lens::after,.no-btn::after,.yes-btn::after,.next::after,.menu::after{
   content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;
   background:var(--g-rim);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
-/* specular glint under the finger */
-.hero::before,.tile::before,.qtbtn::before,.toneinfo::before,.backbtn::before,.pchip::before,.langbtn::before,.iconbtn::before,.qcard::before,.opts button::before,.no-btn::before,.yes-btn::before,.next::before{
-  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
-  background:radial-gradient(160px circle at var(--mx,50%) var(--my,-40%),var(--g-spec),transparent 65%);
-  opacity:var(--glow,0);transition:opacity .4s var(--ease)}
 
 /* ---- springy feedback (transform only, so it stays smooth) ---- */
-.tile,.hero,.backbtn,.pchip,.langbtn,.iconbtn,.opts button,.fcbtns button,.next,.ghost,.tchip,.more,.ucell,.stlv button,.lvrow,.lgrow,.mstats,.danger{transition:transform .45s var(--spring),background .25s,border-color .25s}
+.tile,.hero,.langbtn,.iconbtn,.opts button,.fcbtns button,.next,.ghost,.tchip,.more,.ucell,.lvrow,.lgrow,.mstats,.danger{transition:transform .32s var(--spring),background .2s,border-color .2s}
 .tile:active,.hero:active{transform:scale(.965)}
-.backbtn:active,.pchip:active,.langbtn:active,.iconbtn:active,.tchip:active,.ghost:active,.stlv button:active,.qtbtn:active,.xbtn:active{transform:scale(1.08)}
+.langbtn:active,.iconbtn:active,.tchip:active,.ghost:active,.qtbtn:active,.xbtn:active{transform:scale(1.06)}
 .toneinfo:active,.qtrow:active{transform:scale(.97)}
-.qtbtn,.toneinfo,.xbtn,.qtrow{transition:transform .45s var(--spring),background .25s,border-color .25s}
+.qtbtn,.toneinfo,.xbtn,.qtrow{transition:transform .32s var(--spring),background .2s,border-color .2s}
 .opts button:active:not(:disabled),.fcbtns button:active,.next:active,.ucell:active,.lvrow:active,.lgrow:active,.more:active{transform:scale(.97)}
 .screen{animation:none}
-.enter header.top{animation:dropIn .6s var(--ease) backwards}
-.enter .lvseg{animation:riseIn .62s var(--ease) .03s backwards}
-.enter .hero{animation:riseIn .66s var(--ease) .07s backwards}
-.enter .tile{animation:riseIn .62s var(--ease) backwards}
-.enter .tile:nth-child(1){animation-delay:.12s}.enter .tile:nth-child(2){animation-delay:.16s}.enter .tile:nth-child(3){animation-delay:.2s}
-.enter .allnote,.enter .toneinfo{animation:riseIn .6s var(--ease) .24s backwards}
-.enter .fbar{animation:dropIn .62s var(--spring) backwards}
-.enter .tools,.enter #view,.enter .stbody{animation:riseIn .6s var(--ease) .08s backwards}
-@keyframes riseIn{from{opacity:0;transform:translateY(20px) scale(.97)}}
-@keyframes dropIn{from{opacity:0;transform:translateY(-18px) scale(.96)}}
-/* the tapped tile grows into the next screen (and shrinks back into it) */
-.morph{position:fixed;z-index:90;pointer-events:none;overflow:hidden;border:1px solid var(--g-edge);border-radius:26px;
-  background:radial-gradient(130% 80% at 12% -10%,color-mix(in srgb,var(--acc) 24%,transparent),transparent 65%),linear-gradient(180deg,var(--bg-top),var(--bg-bot));
-  box-shadow:var(--g-inset),0 30px 70px -24px rgba(0,0,0,.45)}
-.morph>.mclone{position:absolute;left:-1px;top:-1px;margin:0;pointer-events:none;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important;transform:none!important}
 
 /* ---- home ---- */
 header.top .seal{position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -6px 12px -8px rgba(0,0,0,.2),0 8px 22px -6px color-mix(in srgb,var(--acc) 75%,transparent),0 0 46px 6px color-mix(in srgb,var(--acc) 32%,transparent)}
 .langbtn,.iconbtn{border-radius:999px}
 .iconbtn{width:42px;height:42px}.langbtn{height:42px;padding:0 13px}
 .lvseg{position:relative;border-radius:22px;padding:4px;margin-bottom:12px}
+.stbody .lvseg{margin-bottom:0}
 .lvseg .lvpills{position:relative;z-index:3;margin:0;gap:0;touch-action:pan-y}
 .lvseg .lvpill{background:transparent;border:0;border-radius:18px;padding:7px 0 6px;box-shadow:none}
 .lvseg .lvpill b{transition:color .3s}
@@ -477,23 +452,29 @@ header.top .seal{position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)
 .lens{position:absolute;top:4px;bottom:4px;left:0;width:0;border-radius:18px;z-index:2;pointer-events:none;background:var(--lens);
   box-shadow:var(--g-inset),0 6px 14px -8px rgba(0,0,0,.35);will-change:transform}
 .lens.drag{transform:scale(1.1,1.16)}
-.hero{border-radius:30px;transition:transform .6s var(--spring)}
+.hero{border-radius:30px}
 .ring .trk{stroke:color-mix(in srgb,var(--fg) 9%,transparent)}
-.ring .sg{transition:stroke-dasharray 1s var(--ease),stroke-dashoffset 1s var(--ease)}
+.ring .sg{transition:stroke-dasharray .7s var(--ease),stroke-dashoffset .7s var(--ease)}
 .hfoot{border-top-color:var(--line)}
 .tile{border-radius:26px}
 .tile .ic{border-radius:15px;background:color-mix(in srgb,var(--acc) 16%,transparent);border:1px solid var(--g-edge);box-shadow:var(--g-inset);color:var(--acc)}
 .allnote{color:var(--soft)}
 
-/* ---- focused screens ---- */
-.fbar{background:linear-gradient(180deg,var(--bar) 0,color-mix(in srgb,var(--bar) 70%,transparent) 40%,transparent);border-bottom:0;padding-bottom:8px;margin-bottom:10px}
-.frow{border-radius:24px;padding:6px;gap:6px}
-.frow h2{padding-left:4px}
-.backbtn{width:40px;height:40px;border-radius:999px}
-.pchip{border-radius:999px;height:40px}
-.menu{border-radius:22px;transform-origin:top right;animation:pop .52s cubic-bezier(.2,.8,.25,1)}
-.fbar>.menu{left:auto;right:0;top:calc(100% - 2px);width:min(100%,440px)}
-@keyframes pop{0%{opacity:0;transform:scale(.5,.3)}55%{opacity:1;transform:scale(1.03,1.06)}78%{transform:scale(.992,.985)}100%{opacity:1;transform:none}}
+/* ---- focused screens: one floating glass capsule (back · title · HSK · unit), nothing stacked on top of it ---- */
+.fbar{background:none;border-bottom:0;padding-bottom:6px;margin-bottom:10px}
+.frow{border-radius:999px;padding:4px;gap:2px;background:var(--g-bar);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:var(--g-inset),0 10px 26px -16px rgba(20,25,40,.45)}
+.frow h2{padding-left:6px}
+.frow .backbtn,.frow .pchip{background:transparent;border:0;box-shadow:none;border-radius:999px;height:40px;transition:background .15s,transform .2s var(--ease)}
+.frow .backbtn{width:40px}
+.frow .pchip{padding:0 8px 0 11px;gap:4px}
+.frow .pchip+.pchip{position:relative}
+.frow .pchip+.pchip::before{content:"";position:absolute;left:-1px;top:11px;bottom:11px;width:1px;background:color-mix(in srgb,var(--fg) 14%,transparent)}
+.frow .backbtn:hover,.frow .pchip:hover,.frow .pchip[aria-expanded="true"]{background:color-mix(in srgb,var(--fg) 7%,transparent);border:0}
+.frow .backbtn:active,.frow .pchip:active{background:color-mix(in srgb,var(--fg) 11%,transparent);transform:scale(.95)}
+.menu{border-radius:22px;transform-origin:top right;animation:pop .26s cubic-bezier(.2,.9,.3,1.15)}
+.fbar>.menu{left:auto;right:0;top:calc(100% + 2px);width:min(100%,440px)}
+@keyframes pop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:none}}
 .qmenu{transform-origin:top left}
 .lvrow,.lgrow{border-radius:15px}
 .lvrow:hover,.lgrow:hover,.mstats:hover{background:color-mix(in srgb,var(--fg) 6%,transparent)}
@@ -526,23 +507,13 @@ header.top .seal{position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)
 @keyframes fbIn{from{opacity:0;transform:translateY(6px)}}
 
 /* stats */
-.stlv button{border-radius:999px}
-.stlv button[aria-pressed="true"]{background:color-mix(in srgb,var(--lc) 16%,transparent);border-color:var(--lc)}
 .key{border-radius:16px}
 .stdetail{margin:0 0 calc(8px + env(safe-area-inset-bottom,0px));border-radius:24px;padding:10px 14px;bottom:8px}
-.toast{color:var(--fg);border-radius:999px;padding:10px 18px;animation:pop .4s var(--spring)}
+.toast{color:var(--fg);border-radius:999px;padding:10px 18px;animation:toastIn .26s var(--ease)}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(8px) scale(.94)}to{opacity:1;transform:translateX(-50%)}}
 
-/* ---- screen transitions: zoom out of / back into the tapped control (opacity + scale only) ---- */
-html[data-vt="fwd"]::view-transition-old(root){animation:vtOutF .32s var(--ease) both}
-html[data-vt="fwd"]::view-transition-new(root){animation:vtInF .42s var(--ease) both;transform-origin:var(--vt-x,50%) var(--vt-y,50%)}
-html[data-vt="back"]::view-transition-old(root){animation:vtOutB .34s var(--ease) both;transform-origin:var(--vt-x,50%) var(--vt-y,50%);z-index:2}
-html[data-vt="back"]::view-transition-new(root){animation:vtInB .38s var(--ease) both}
-@keyframes vtOutF{to{opacity:0;transform:scale(1.04)}}
-@keyframes vtInF{from{opacity:0;transform:scale(.8)}}
-@keyframes vtOutB{to{opacity:0;transform:scale(.8)}}
-@keyframes vtInB{from{opacity:0;transform:scale(1.04)}}
 html[data-vt="theme"]::view-transition-old(root){animation:none}
-html[data-vt="theme"]::view-transition-new(root){animation:reveal .55s cubic-bezier(.4,0,.2,1)}
+html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bezier(.4,0,.2,1)}
 @keyframes reveal{from{clip-path:circle(0 at var(--vt-x,90%) var(--vt-y,5%))}to{clip-path:circle(150vmax at var(--vt-x,90%) var(--vt-y,5%))}}
 @media (prefers-reduced-motion:reduce){.menu,.toast,.feedback,.opts button.ok,.opts button.ng{animation:none}}
 
@@ -556,12 +527,12 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .55s cubic-bez
 /* tone colours & info */
 .toneinfo{border-radius:999px;margin-top:16px;color:var(--soft)}
 .toneinfo .excl{color:var(--acc);box-shadow:0 0 14px -2px color-mix(in srgb,var(--acc) 60%,transparent)}
-.scrim2{background:rgba(8,10,16,.30);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fadeIn .3s ease both}
+.scrim2{background:rgba(8,10,16,.34);animation:fadeIn .22s ease both}
 .isheet{background:var(--g-head);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);border-radius:32px 32px 0 0;
-  box-shadow:var(--g-inset),0 -24px 60px -24px rgba(0,0,0,.4);animation:sheetUpL .62s cubic-bezier(.2,.9,.2,1) both}
+  box-shadow:var(--g-inset),0 -24px 60px -24px rgba(0,0,0,.4);animation:sheetUpL .34s cubic-bezier(.2,.9,.25,1) both}
 @media (min-width:600px){.isheet{border-radius:32px;animation-name:sheetPopL}}
-@keyframes sheetUpL{0%{transform:translateY(100%) scaleX(.9);border-radius:80px 80px 0 0}62%{transform:translateY(-1.5%) scaleX(1.01)}100%{transform:none}}
-@keyframes sheetPopL{0%{opacity:0;transform:scale(.6,.4)}58%{opacity:1;transform:scale(1.02,1.04)}100%{transform:none}}
+@keyframes sheetUpL{from{transform:translateY(100%)}to{transform:none}}
+@keyframes sheetPopL{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 .ihead .excl{box-shadow:0 0 16px -2px color-mix(in srgb,var(--acc) 60%,transparent)}
 .xbtn{border-radius:50%;color:var(--fg)}
 .tone{background:var(--g-solid);border:1px solid var(--g-edge);box-shadow:var(--g-inset);border-radius:16px}
@@ -653,7 +624,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .55s cubic-bez
     </div>
   </div>
   <div class="stbody">
-    <div class="stlv" id="stLevels" role="group" data-i18n-aria="level"></div>
+    <div class="lvpills" id="stLevels" role="group" data-i18n-aria="level"></div>
     <div class="stsum" id="stSum"></div>
     <div class="stbar"><div class="stack" id="stStack"></div></div>
     <div class="keys" id="stKeys"></div>
@@ -810,6 +781,10 @@ Object.assign(I18N.vi,{memoWord:'mức thuộc',matureWord:'thuộc hẳn',lvlWo
   matureOf:(k,n)=>`${k}/${n} thuộc hẳn`,matureN:k=>`${k} thuộc hẳn`,stTxt:(s,a,b)=>`Mức ${s}/20 · ${a} đúng, ${b} sai`,
   roundDone:'Xong một vòng. Những từ chưa thuộc hẳn sẽ xuất hiện lại ở vòng sau.',
   rsNote:'Mỗi câu trả lời đúng (Thẻ, Kiểm tra hoặc nút Biết) nâng từ lên 1 mức, tối đa 20. Trả lời sai giảm 3 mức. Màu chuyển dần từ đỏ sang vàng rồi xanh: màu nhạt là còn non, màu đậm là đã thuộc hẳn.'});
+I18N.id.credit='Kosakata HSK 1–6 dari silabus ujian HSK terbitan November 2025 (data terbuka {src}). Progres tersimpan di perangkat ini saja.';
+I18N.en.credit='HSK 1–6 vocabulary from the HSK exam syllabus published in November 2025 (open data {src}). Progress is saved on this device only.';
+I18N.th.credit='คำศัพท์ HSK 1–6 จากหลักสูตรการสอบ HSK ฉบับพฤศจิกายน 2025 (ข้อมูลเปิด {src}) ความคืบหน้าบันทึกไว้ในอุปกรณ์นี้เท่านั้น';
+I18N.vi.credit='Từ vựng HSK 1–6 theo đề cương thi HSK ban hành tháng 11/2025 (dữ liệu mở {src}). Tiến độ chỉ được lưu trên thiết bị này.';
 I18N.id.th.black='Hitam pekat';I18N.en.th.black='True black';I18N.th.th.black='ดำสนิท';I18N.vi.th.black='Đen tuyền';
 Object.assign(I18N.id,{back:'Kembali',statsShort:'Statistik',subList:'Lihat & cari kata',subCard:'Latihan menghafal',subQuiz:'Uji pemahaman'});
 Object.assign(I18N.en,{back:'Back',statsShort:'Stats',subList:'Browse & search',subCard:'Practice recall',subQuiz:'Test yourself'});
@@ -1176,7 +1151,7 @@ view.addEventListener('click',e=>{
 let stLevel=1,stSel=null,stConfirm=false;
 function renderStats(){
   const arr=BY[stLevel],S=summary(arr);
-  $('stLevels').innerHTML=LEVELS.map(l=>`<button data-sl="${l}" style="--lc:var(--l${l})" aria-pressed="${l===stLevel}">HSK ${l}</button>`).join('');
+  $('stLevels').innerHTML=LEVELS.map(l=>`<button class="lvpill" data-sl="${l}" aria-pressed="${l===stLevel}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`).join('');
   $('stSum').innerHTML=`<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n-S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
   $('stStack').innerHTML=stackH(S);
   $('stKeys').innerHTML=[['red','0–6'],['yellow','7–13'],['green','14–20'],['none','']].map(([b,r])=>`<div class="key"><b><i class="sd s-${b}"></i>${fmt(S[b])}</b>${L10.band[b]}${r?' · '+L10.lvlWord+' '+r:''}</div>`).join('');
@@ -1186,6 +1161,7 @@ function renderStats(){
     g+=`<div class="ublock"><div class="ulabel">${L10.unit.toUpperCase()} ${pad(u)} <span>· ${pctTxt(Su.p)} · ${L10.matureOf(Su.mature,Su.n)}</span></div><div class="dots">${it.map(d=>`<button class="${mcls(d)}" data-sid="${esc(d.id)}" aria-current="${d.id===stSel}" aria-label="${esc(d.h)} · ${esc(stTxt(d))}" title="${esc(d.h)}"></button>`).join('')}</div></div>`}
   $('stGrid').innerHTML=g;
   renderDetail();renderFoot();
+  if(window.mmStatsRendered)window.mmStatsRendered();
 }
 function renderDetail(){
   const el=$('stDetail'),d=stSel&&IDX.get(stSel);
@@ -1211,7 +1187,7 @@ const TONE_PATH=['M4 6H36','M4 17L36 5','M4 9Q16 24 23 18T36 5','M4 4L36 20','']
 function renderInfo(){
   $('infoTones').innerHTML=L10.tones.map(([n,dsc,ex],i)=>{const t=i+1,[h,p]=[['妈','mā'],['麻','má'],['马','mǎ'],['骂','mà'],['吗','ma']][i];
     return `<div class="tone"><span class="tz t${t}">${h}</span><span class="tp t${t}">${p}</span><svg class="tc t${t}" viewBox="0 0 40 24" aria-hidden="true">${TONE_PATH[i]?`<path d="${TONE_PATH[i]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`:'<circle cx="20" cy="14" r="3.2" fill="currentColor"/>'}</svg><span class="tn"><b>${n}</b><small>${dsc}</small></span><span class="tm">${esc(ex)}</span></div>`}).join('');
-  $('infoCred').innerHTML=esc(L10.foot).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
+  $('infoCred').innerHTML=esc(L10.credit).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
 }
 let infoOpener=null;
 function openInfo(){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';infoSheet.querySelector('.xbtn').focus()}
@@ -1252,123 +1228,93 @@ const reduce=(()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').mat
 const root=document.documentElement;
 const hasVT=!!document.startViewTransition&&!reduce;
 if(window.MMAndroid)root.classList.add('app');
+function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 
-/* 1. specular highlight that follows the finger / pointer across glass */
-const GLASS='.hero,.tile,.backbtn,.pchip,.langbtn,.iconbtn,.qcard,.opts button,.no-btn,.yes-btn,.next,.qtbtn,.toneinfo';
-let hot=null,raf=0,px=0,py=0,coolT=0;
-function paint(){raf=0;if(!hot||!hot.isConnected)return;const r=hot.getBoundingClientRect();hot.style.setProperty('--mx',(px-r.left)+'px');hot.style.setProperty('--my',(py-r.top)+'px')}
-function setHot(el){if(hot===el)return;if(hot)hot.style.setProperty('--glow','0');hot=el;if(hot)hot.style.setProperty('--glow','1')}
-const pick=t=>t&&t.closest?t.closest(GLASS):null;
-document.addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;setHot(pick(e.target));if(!raf)raf=requestAnimationFrame(paint)},{passive:true});
-document.addEventListener('pointerdown',e=>{clearTimeout(coolT);px=e.clientX;py=e.clientY;setHot(pick(e.target));paint()},{passive:true});
-document.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')coolT=setTimeout(()=>setHot(null),420)},{passive:true});
-document.addEventListener('pointercancel',()=>setHot(null),{passive:true});
-root.addEventListener('mouseleave',()=>setHot(null));
-
-/* 2. the progress card tilts toward the finger and sinks a little when pressed */
-const hero=document.getElementById('hero');
-if(!reduce){
-  let tx=0,ty=0,pr=false;
-  const apply=()=>{hero.style.transform=`perspective(900px) rotateX(${tx}deg) rotateY(${ty}deg) scale(${pr?.975:1})`};
-  const fast=on=>{hero.style.transition=on?'transform .18s ease-out,box-shadow .3s':''};
-  hero.addEventListener('pointerenter',()=>fast(true));
-  hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();ty=((e.clientX-r.left)/r.width-.5)*9;tx=-((e.clientY-r.top)/r.height-.5)*9;apply()});
-  hero.addEventListener('pointerdown',()=>{pr=true;fast(true);apply()});
-  const rel=()=>{tx=ty=0;pr=false;fast(false);apply()};
-  hero.addEventListener('pointerleave',rel);hero.addEventListener('pointercancel',rel);
-  hero.addEventListener('pointerup',()=>{pr=false;apply();setTimeout(rel,180)});
+/* 1. HSK selectors (Home and Stats): a glass lens slides between levels and can be dragged with a finger */
+const lenses=[];
+function makeLens(pills){
+  const seg=document.createElement('div');seg.className='lvseg';pills.parentNode.insertBefore(seg,pills);seg.appendChild(pills);
+  const lens=document.createElement('div');lens.className='lens';seg.prepend(lens);
+  seg.style.touchAction='pan-y';
+  let at=null,drag=null;
+  const cur=()=>pills.querySelector('[aria-pressed="true"]');
+  function to(btn,animate){
+    if(!btn||!seg.offsetParent){at=null;return}
+    const sr=seg.getBoundingClientRect(),br=btn.getBoundingClientRect(),L=br.left-sr.left,W=br.width;
+    const from=at;at=L;lens.style.width=W+'px';lens.style.left=L+'px';
+    if(from===null||!animate||reduce||Math.abs(from-L)<1)return;
+    lens.animate([{left:from+'px',transform:'scale(1,1)'},{transform:'scale(1.18,.9)',offset:.45},{left:L+'px',transform:'scale(1,1)'}],{duration:380,easing:'cubic-bezier(.3,1.2,.5,1)'});
+  }
+  seg.addEventListener('pointerdown',e=>{if(reduce||at===null)return;drag={x0:e.clientX,start:at,moved:false,id:e.pointerId}});
+  seg.addEventListener('pointermove',e=>{
+    if(!drag)return;const dx=e.clientX-drag.x0;
+    if(!drag.moved){if(Math.abs(dx)<7)return;drag.moved=true;try{seg.setPointerCapture(drag.id)}catch(_){}lens.classList.add('drag')}
+    const sr=seg.getBoundingClientRect(),W=lens.offsetWidth,L=Math.max(4,Math.min(sr.width-W-4,drag.start+dx));
+    lens.style.left=L+'px';at=L;
+  });
+  const end=()=>{
+    if(!drag)return;const d=drag;drag=null;lens.classList.remove('drag');if(!d.moved)return;
+    const sr=seg.getBoundingClientRect(),c=at+lens.offsetWidth/2;let best=null,bd=1e9;
+    pills.querySelectorAll('.lvpill').forEach(b=>{const r=b.getBoundingClientRect(),m=r.left-sr.left+r.width/2;if(Math.abs(m-c)<bd){bd=Math.abs(m-c);best=b}});
+    if(best&&best.getAttribute('aria-pressed')!=='true'){buzz(8);best.click()}else to(best,true);
+  };
+  seg.addEventListener('pointerup',end);seg.addEventListener('pointercancel',end);
+  const api={sync:animate=>to(cur(),animate),reset:()=>{at=null}};
+  lenses.push(api);return api;
 }
+const homeLens=makeLens(document.getElementById('lvPills'));
+const statLens=makeLens(document.getElementById('stLevels'));
+addEventListener('resize',()=>lenses.forEach(l=>{l.reset();l.sync(false)}));
 
-/* 3. HSK selector: a glass lens slides (and stretches) between levels; it can also be dragged */
-const pills=document.getElementById('lvPills');
-const seg=document.createElement('div');seg.className='lvseg';pills.parentNode.insertBefore(seg,pills);seg.appendChild(pills);
-const lens=document.createElement('div');lens.className='lens';seg.prepend(lens);
-seg.style.touchAction='pan-y';
-let lensL=null;
-function lensTo(btn,animate){
-  if(!btn||!seg.offsetParent)return;
-  const sr=seg.getBoundingClientRect(),br=btn.getBoundingClientRect(),L=br.left-sr.left,W=br.width;
-  const from=lensL;lensL=L;lens.style.width=W+'px';
-  if(from===null||!animate||reduce||Math.abs(from-L)<1){lens.style.left=L+'px';return}
-  lens.style.left=L+'px';
-  lens.animate([{left:from+'px',transform:'scale(1,1)'},{transform:'scale(1.28,.86)',offset:.42},{left:L+'px',transform:'scale(1,1)'}],{duration:620,easing:'cubic-bezier(.34,1.25,.64,1)'});
-}
-let drag=null;
-seg.addEventListener('pointerdown',e=>{if(reduce||lensL===null)return;drag={x0:e.clientX,start:lensL,moved:false,id:e.pointerId}});
-seg.addEventListener('pointermove',e=>{
-  if(!drag)return;const dx=e.clientX-drag.x0;
-  if(!drag.moved){if(Math.abs(dx)<7)return;drag.moved=true;try{seg.setPointerCapture(drag.id)}catch(_){}lens.classList.add('drag')}
-  const sr=seg.getBoundingClientRect(),W=lens.offsetWidth,L=Math.max(4,Math.min(sr.width-W-4,drag.start+dx));
-  lens.style.left=L+'px';lensL=L;
-});
-const endDrag=()=>{
-  if(!drag)return;const d=drag;drag=null;lens.classList.remove('drag');if(!d.moved)return;
-  const sr=seg.getBoundingClientRect(),c=lensL+lens.offsetWidth/2;let best=null,bd=1e9;
-  pills.querySelectorAll('.lvpill').forEach(b=>{const r=b.getBoundingClientRect(),m=r.left-sr.left+r.width/2;if(Math.abs(m-c)<bd){bd=Math.abs(m-c);best=b}});
-  if(best&&+best.dataset.l!==state.level){buzz(8);setLevel(+best.dataset.l)}else lensTo(best,true);
-};
-seg.addEventListener('pointerup',endDrag);seg.addEventListener('pointercancel',endDrag);
-addEventListener('resize',()=>{lensL=null;lensTo(pills.querySelector('[aria-pressed="true"]'),false)});
-
-/* 4. on Home the ring draws itself and the percentage counts up */
+/* 2. on Home the ring draws itself and the percentage counts up (short, so it never holds you up) */
 let cuT=0;
-function countUp(el,to){cancelAnimationFrame(cuT);const t0=performance.now(),D=950;
+function countUp(el,to){cancelAnimationFrame(cuT);const t0=performance.now(),D=700;
   const step=t=>{const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3);el.textContent=pctTxt(to*e);if(k<1)cuT=requestAnimationFrame(step)};cuT=requestAnimationFrame(step)}
 window.mmHomeRendered=S=>{
-  lensTo(pills.querySelector('[aria-pressed="true"]'),lensL!==null);
+  homeLens.sync(true);
   if(reduce)return;
   const arcs=[...document.querySelectorAll('#ringArcs circle')];
   arcs.forEach(c=>{c.style.transition='none';c.style.strokeDasharray=`0 ${RING_C}`;c.style.strokeDashoffset='0'});
   requestAnimationFrame(()=>requestAnimationFrame(()=>arcs.forEach(c=>{c.style.transition='';c.style.strokeDasharray='';c.style.strokeDashoffset=''})));
   countUp(document.getElementById('heroPct'),S.p);
 };
+window.mmStatsRendered=()=>statLens.sync(true);
 
-/* 5. opening a screen: the tapped glass tile grows into the new screen, like liquid;
-      going back, the screen shrinks back into its tile. The new screen's parts then rise in, one after another. */
-const SPRING=(()=>{try{return CSS.supports('transition-timing-function','linear(0, 1)')}catch(e){return false}})()
-  ?'linear(0, 0.07 3%, 0.25 8%, 0.52 15%, 0.76 23%, 0.91 31%, 0.99 39%, 1.025 47%, 1.03 54%, 1.02 63%, 1.008 76%, 1)'
-  :'cubic-bezier(.22,1.12,.36,1)';
+/* 3. opening a screen: it zooms out of the tile you tapped in one quick, smooth motion (opacity + scale only,
+      on the compositor); going back, Home settles into place around the tile you came from. */
 const scrOf=s=>s==='home'?document.getElementById('scr-home'):s==='stats'?document.getElementById('scr-stats'):document.getElementById('scr-focus');
-let enterT=0;
-function enter(s){const el=scrOf(s);el.classList.remove('enter');void el.offsetWidth;el.classList.add('enter');clearTimeout(enterT);enterT=setTimeout(()=>el.classList.remove('enter'),1100)}
-let lastTap=null;
+let lastTap=null,anim=null;
 document.addEventListener('pointerdown',e=>{lastTap=e.target.closest?e.target.closest('.tile,#hero,.mstats'):null},{capture:true,passive:true});
-function box(r,rad){return{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',borderRadius:rad+'px'}}
-function cloneInto(m,el,r){const c=el.cloneNode(true);c.removeAttribute('id');c.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));
-  c.classList.add('mclone');c.style.width=r.width+'px';c.style.height=r.height+'px';m.appendChild(c);return c}
-let busy=false;window.mmBusy=()=>busy;
+function originIn(sec,el){
+  const s=sec.getBoundingClientRect();
+  if(!el||!el.isConnected||!el.offsetParent)return '50% 120px';
+  const r=el.getBoundingClientRect();
+  return `${Math.round(r.left+r.width/2-s.left)}px ${Math.round(r.top+r.height/2-s.top)}px`;
+}
 window.mmTransition=(run,from,to)=>{
-  if(reduce||busy){run();enter(to);return}
   const fwd=from==='home'||to==='stats';
-  const full={left:'0px',top:'0px',width:innerWidth+'px',height:innerHeight+'px',borderRadius:'0px'};
+  const tapped=fwd?lastTap:null;lastTap=null;
+  const tapRect=tapped&&tapped.isConnected?tapped.getBoundingClientRect():null;
+  lenses.forEach(l=>l.reset());
+  if(anim){try{anim.cancel()}catch(_){}anim=null}
+  run();
+  if(reduce)return;
+  const sec=scrOf(to);
+  let origin;
   if(fwd){
-    const el=lastTap&&lastTap.isConnected&&lastTap.offsetParent?lastTap:null;lastTap=null;
-    if(!el){run();enter(to);return}
-    busy=true;
-    const r=el.getBoundingClientRect(),rad=parseFloat(getComputedStyle(el).borderTopLeftRadius)||24;
-    const m=document.createElement('div');m.className='morph';Object.assign(m.style,box(r,rad));document.body.appendChild(m);
-    const c=cloneInto(m,el,r);
-    c.animate([{opacity:1},{opacity:0}],{duration:200,easing:'ease-out',fill:'forwards'});
-    m.animate([box(r,rad),full],{duration:620,easing:SPRING,fill:'forwards'});
-    setTimeout(()=>run(),270);
-    setTimeout(()=>{enter(to);m.animate([{opacity:1},{opacity:0}],{duration:340,easing:'ease-out',fill:'forwards'}).finished.then(()=>{m.remove();busy=false})},430);
+    const s=sec.getBoundingClientRect();
+    origin=tapRect?`${Math.round(tapRect.left+tapRect.width/2-s.left)}px ${Math.round(tapRect.top+tapRect.height/2-s.top)}px`:'50% 120px';
   }else{
-    busy=true;
-    const m=document.createElement('div');m.className='morph';Object.assign(m.style,full);document.body.appendChild(m);
-    m.animate([{opacity:0},{opacity:1}],{duration:150,easing:'ease-out',fill:'forwards'}).finished.then(()=>{
-      run();enter(to);
-      const el=to==='home'?(FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
-      if(!el||!el.offsetParent){m.animate([{opacity:1},{opacity:0}],{duration:260,fill:'forwards'}).finished.then(()=>{m.remove();busy=false});return}
-      const r=el.getBoundingClientRect(),rad=parseFloat(getComputedStyle(el).borderTopLeftRadius)||24;
-      const c=cloneInto(m,el,r);c.style.opacity='0';
-      c.animate([{opacity:0},{opacity:0,offset:.45},{opacity:1}],{duration:560,fill:'forwards'});
-      m.animate([full,box(r,rad)],{duration:640,easing:SPRING,fill:'forwards'}).finished
-        .then(()=>m.animate([{opacity:1},{opacity:0}],{duration:180,fill:'forwards'}).finished).then(()=>{m.remove();busy=false});
-    });
+    const el=to==='home'?(FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
+    origin=originIn(sec,el);
   }
+  sec.style.transformOrigin=origin;
+  const a=sec.animate(fwd?[{opacity:0,transform:'scale(.9)'},{opacity:1,transform:'none'}]:[{opacity:0,transform:'scale(1.04)'},{opacity:1,transform:'none'}],
+    {duration:fwd?280:220,easing:'cubic-bezier(.2,.85,.25,1)'});
+  anim=a;a.onfinish=a.oncancel=()=>{if(anim===a){anim=null;sec.style.transformOrigin=''}};
 };
 
-/* 6. switching theme spreads the new look out from the button */
+/* 4. switching theme spreads the new look out from the button */
 const tb=document.getElementById('themeBtn'),themeClick=tb.onclick;
 tb.onclick=e=>{
   if(!hasVT){themeClick(e);return}
@@ -1377,15 +1323,14 @@ tb.onclick=e=>{
   try{document.startViewTransition(()=>themeClick(e)).finished.finally(()=>{delete root.dataset.vt})}catch(_){themeClick(e)}
 };
 
-/* 7. light haptics (Android app) */
-function buzz(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
+/* 5. light haptics (Android app) */
 window.mmFeedback=ok=>buzz(ok?14:[16,60,26]);
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.tile,.lvpill,#hero'))buzz(7)},{capture:true});
 
-/* 8. the HSK/unit menus live beside the floating header, not inside it, so their own blur sees the page */
+/* 6. the HSK/unit menus live beside the floating header, not inside it, so their own blur sees the page */
 {const fb=document.querySelector('#scr-focus .fbar');['lvMenu','uMenu'].forEach(id=>fb.appendChild(document.getElementById(id)))}
 
 /* first paint of Home with the lens and the animated ring */
-if(state.screen==='home')renderHome();
+if(state.screen==='home')renderHome();else if(state.screen==='stats')renderStats();
 })();
 </script>

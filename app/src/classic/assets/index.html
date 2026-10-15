@@ -297,9 +297,7 @@ html[lang="th"] .id{font-style:normal}
 
 /* stats screen */
 .stbody{display:flex;flex-direction:column;gap:12px}
-.stlv{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-.stlv button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:5px 0;font-size:13px;font-weight:800;white-space:nowrap}
-.stlv button[aria-pressed="true"]{border-color:var(--lc);color:var(--lc);background:color-mix(in srgb,var(--lc) 12%,var(--surface))}
+.stbody .lvpills{margin-bottom:0}
 .stsum{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .stsum .big{font-size:28px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .stsum .big small{font-size:14px;font-weight:700;color:var(--soft);margin-left:4px}
@@ -333,7 +331,7 @@ html[lang="th"] .id{font-style:normal}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 14px;border-radius:11px;font-size:13px;font-weight:700;z-index:60;white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
 
 @media (max-width:719px){.keys{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.stlv button{font-size:11.5px}.hz{font-size:24px}.flip{height:380px}}
+@media (max-width:520px){.hz{font-size:24px}.flip{height:380px}}
 @media (max-width:400px){
   header.top{gap:8px}.langbtn svg{display:none}.langbtn{padding:0 11px}
   .hero{padding:16px 14px;gap:12px 14px}.ring{width:148px;height:148px}.rc b{font-size:34px}
@@ -425,7 +423,7 @@ html[lang="th"] .id{font-style:normal}
     </div>
   </div>
   <div class="stbody">
-    <div class="stlv" id="stLevels" role="group" data-i18n-aria="level"></div>
+    <div class="lvpills" id="stLevels" role="group" data-i18n-aria="level"></div>
     <div class="stsum" id="stSum"></div>
     <div class="stbar"><div class="stack" id="stStack"></div></div>
     <div class="keys" id="stKeys"></div>
@@ -581,6 +579,10 @@ Object.assign(I18N.vi,{memoWord:'mức thuộc',matureWord:'thuộc hẳn',lvlWo
   matureOf:(k,n)=>`${k}/${n} thuộc hẳn`,matureN:k=>`${k} thuộc hẳn`,stTxt:(s,a,b)=>`Mức ${s}/20 · ${a} đúng, ${b} sai`,
   roundDone:'Xong một vòng. Những từ chưa thuộc hẳn sẽ xuất hiện lại ở vòng sau.',
   rsNote:'Mỗi câu trả lời đúng (Thẻ, Kiểm tra hoặc nút Biết) nâng từ lên 1 mức, tối đa 20. Trả lời sai giảm 3 mức. Màu chuyển dần từ đỏ sang vàng rồi xanh: màu nhạt là còn non, màu đậm là đã thuộc hẳn.'});
+I18N.id.credit='Kosakata HSK 1–6 dari silabus ujian HSK terbitan November 2025 (data terbuka {src}). Progres tersimpan di perangkat ini saja.';
+I18N.en.credit='HSK 1–6 vocabulary from the HSK exam syllabus published in November 2025 (open data {src}). Progress is saved on this device only.';
+I18N.th.credit='คำศัพท์ HSK 1–6 จากหลักสูตรการสอบ HSK ฉบับพฤศจิกายน 2025 (ข้อมูลเปิด {src}) ความคืบหน้าบันทึกไว้ในอุปกรณ์นี้เท่านั้น';
+I18N.vi.credit='Từ vựng HSK 1–6 theo đề cương thi HSK ban hành tháng 11/2025 (dữ liệu mở {src}). Tiến độ chỉ được lưu trên thiết bị này.';
 I18N.id.th.black='Hitam pekat';I18N.en.th.black='True black';I18N.th.th.black='ดำสนิท';I18N.vi.th.black='Đen tuyền';
 Object.assign(I18N.id,{back:'Kembali',statsShort:'Statistik',subList:'Lihat & cari kata',subCard:'Latihan menghafal',subQuiz:'Uji pemahaman'});
 Object.assign(I18N.en,{back:'Back',statsShort:'Stats',subList:'Browse & search',subCard:'Practice recall',subQuiz:'Test yourself'});
@@ -947,7 +949,7 @@ view.addEventListener('click',e=>{
 let stLevel=1,stSel=null,stConfirm=false;
 function renderStats(){
   const arr=BY[stLevel],S=summary(arr);
-  $('stLevels').innerHTML=LEVELS.map(l=>`<button data-sl="${l}" style="--lc:var(--l${l})" aria-pressed="${l===stLevel}">HSK ${l}</button>`).join('');
+  $('stLevels').innerHTML=LEVELS.map(l=>`<button class="lvpill" data-sl="${l}" aria-pressed="${l===stLevel}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`).join('');
   $('stSum').innerHTML=`<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n-S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
   $('stStack').innerHTML=stackH(S);
   $('stKeys').innerHTML=[['red','0–6'],['yellow','7–13'],['green','14–20'],['none','']].map(([b,r])=>`<div class="key"><b><i class="sd s-${b}"></i>${fmt(S[b])}</b>${L10.band[b]}${r?' · '+L10.lvlWord+' '+r:''}</div>`).join('');
@@ -957,6 +959,7 @@ function renderStats(){
     g+=`<div class="ublock"><div class="ulabel">${L10.unit.toUpperCase()} ${pad(u)} <span>· ${pctTxt(Su.p)} · ${L10.matureOf(Su.mature,Su.n)}</span></div><div class="dots">${it.map(d=>`<button class="${mcls(d)}" data-sid="${esc(d.id)}" aria-current="${d.id===stSel}" aria-label="${esc(d.h)} · ${esc(stTxt(d))}" title="${esc(d.h)}"></button>`).join('')}</div></div>`}
   $('stGrid').innerHTML=g;
   renderDetail();renderFoot();
+  if(window.mmStatsRendered)window.mmStatsRendered();
 }
 function renderDetail(){
   const el=$('stDetail'),d=stSel&&IDX.get(stSel);
@@ -982,7 +985,7 @@ const TONE_PATH=['M4 6H36','M4 17L36 5','M4 9Q16 24 23 18T36 5','M4 4L36 20','']
 function renderInfo(){
   $('infoTones').innerHTML=L10.tones.map(([n,dsc,ex],i)=>{const t=i+1,[h,p]=[['妈','mā'],['麻','má'],['马','mǎ'],['骂','mà'],['吗','ma']][i];
     return `<div class="tone"><span class="tz t${t}">${h}</span><span class="tp t${t}">${p}</span><svg class="tc t${t}" viewBox="0 0 40 24" aria-hidden="true">${TONE_PATH[i]?`<path d="${TONE_PATH[i]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`:'<circle cx="20" cy="14" r="3.2" fill="currentColor"/>'}</svg><span class="tn"><b>${n}</b><small>${dsc}</small></span><span class="tm">${esc(ex)}</span></div>`}).join('');
-  $('infoCred').innerHTML=esc(L10.foot).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
+  $('infoCred').innerHTML=esc(L10.credit).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
 }
 let infoOpener=null;
 function openInfo(){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';infoSheet.querySelector('.xbtn').focus()}
